@@ -1,11 +1,14 @@
 from flask import Flask
 
+from server.Pinger import Pinger
 from util.EnvironmentReader import EnvironmentReader
 
 app = Flask(__name__)
 
 if __name__ == "__main__":
-    from views.admin import *
+
+    test = Pinger.ping("8.8.8.8")
+    print(test)
 
     if EnvironmentReader.get("TEST_ENVIRONMENT") == "True":
         app.run(debug=True)
