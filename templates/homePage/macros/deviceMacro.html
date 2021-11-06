@@ -1,0 +1,8 @@
+{% macro deviceMacro(deviceName, ipAddress, lastAliveTimestamp) %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/homePage/macros/deviceMacro.css') }}">
+<div class="device" id="id">
+    <div class="deviceName">{{deviceName}}</div>
+    <div class="ipAddress">{{ipAddress}}</div>
+    <div class="lastAliveTimestamp">{{lastAliveTimestamp}}</div>
+</div>
+{% endmacro %}
