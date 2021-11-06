@@ -1,3 +1,6 @@
 :root {
     --primaryColor: #00f;
+
+    --bgColorPrimary: #000;
+    --bgColorSecondary: #FFF;
 }
