@@ -11,8 +11,10 @@
 
 .deviceLabel {
     height: 100%;
-    width: 20%;
-    font-size: 50px;
+    width: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .deviceName {
