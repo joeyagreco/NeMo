@@ -8,6 +8,7 @@
     <meta name="author" content="Joey Greco">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/colors.css') }}">
     <script src="{{ url_for('static', filename='js/base.js') }}"></script>
     <!-- bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -34,7 +35,7 @@
 
 <nav class="navbar navbar-light darkestColor">
     <a class="navbar-brand" href="#" onclick="homeRedirect()">
-        <span class="logoButton">NeMo</span>
+        <span id="logoButton">NeMo</span>
     </a>
     <a class="nav-item nav-link" href="#" onclick="leagueHomepageRedirect()"><i
             class="fas fa-home"></i> <span class="navBarText">Home</span></a>

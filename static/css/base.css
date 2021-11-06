@@ -1,8 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Sarabun&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Play&display=swap');
 
 html {
   width: 100%;
@@ -34,7 +30,6 @@ body {
 
 .pageTitle {
   font-size: 400%;
-  font-family: 'Fjalla One', sans-serif;
   order: 1;
   text-align: center;
   color: black;
@@ -42,7 +37,6 @@ body {
 
 .pageSubtitle {
   font-size: 200%;
-  font-family: 'Rubik', sans-serif;
   order: 2;
   text-align: center;
   color: black;
@@ -65,7 +59,6 @@ body {
 .nav-item {
     font-size: 1.2rem;
     color: black;
-    font-family: 'Sarabun', sans-serif;
 }
 
 .nav-item:hover {
@@ -76,10 +69,10 @@ button {
     cursor: pointer;
 }
 
-.logoButton {
-    font-size: 150%;
-    font-family: 'Russo One', sans-serif;
-    color: #95D5B2;
+#logoButton {
+    font-size: 200%;
+    color: var(--primaryColor);
+    font-family: 'Play', sans-serif;
 }
 
 .logoButton:hover {
