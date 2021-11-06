@@ -1,0 +1,6 @@
+{% macro deviceSectionMacro(cssId, title) %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/homePage/macros/deviceSectionMacro.css') }}">
+<div class="deviceSection" id="{{cssId}}">
+    {{title}}
+</div>
+{% endmacro %}

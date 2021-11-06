@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% from "homePage/macros/ipSectionMacro.html" import ipSection %}
+{% from "homePage/macros/deviceSectionMacro.html" import deviceSectionMacro %}
 
 {% block head %}
 <title>NeMo</title>
@@ -16,9 +16,9 @@
 {% block header %}{% endblock %}
 
 {% block content %}
-<div id="mainSection">
-    {{ipSection("criticalSection","test section")}}
-    {{ipSection("knownSection","known section")}}
-    {{ipSection("unknownSection","unknown section")}}
+<div id="deviceSections">
+    {{deviceSectionMacro("criticalSection","critical section")}}
+    {{deviceSectionMacro("knownSection","known section")}}
+    {{deviceSectionMacro("unknownSection","unknown section")}}
 </div>
 {% endblock %}
