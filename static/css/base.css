@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sarabun&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
+
+html {
+  width: 100%;
+  height: 100%;
+  overflow-y: visible;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+}
+
+.leagueIdHidden {
+    display: none;
+}
+
+.topSection {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin-bottom: 2%;
+}
+
+.bottomSection {
+  width: 100%;
+  height: 100%;
+}
+
+.pageTitle {
+  font-size: 400%;
+  font-family: 'Fjalla One', sans-serif;
+  order: 1;
+  text-align: center;
+  color: black;
+}
+
+.pageSubtitle {
+  font-size: 200%;
+  font-family: 'Rubik', sans-serif;
+  order: 2;
+  text-align: center;
+  color: black;
+}
+
+.errorSection {
+    width: 100%;
+    order: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.navbar {
+    height: 4rem;
+    padding-left: 1rem;
+    justify-content: flex-start !important;
+}
+
+.nav-item {
+    font-size: 1.2rem;
+    color: black;
+    font-family: 'Sarabun', sans-serif;
+}
+
+.nav-item:hover {
+    color: grey;
+}
+
+button {
+    cursor: pointer;
+}
+
+.logoButton {
+    font-size: 150%;
+    font-family: 'Russo One', sans-serif;
+    color: #95D5B2;
+}
+
+.logoButton:hover {
+    color: white;
+}
+
+.loader-wrapper {
+    opacity: 0.2;
+    background-color: #ccc;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

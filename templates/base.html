@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Network Monitor">
+    <meta name="keywords" content="HTML, CSS, JavaScript">
+    <meta name="author" content="Joey Greco">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <script src="{{ url_for('static', filename='js/base.js') }}"></script>
+    <!-- bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+            crossorigin="anonymous"></script>
+    <!-- Add icon library -->
+    <script src="https://kit.fontawesome.com/e509e6f024.js" crossorigin="anonymous"></script>
+    {% block head %}
+    {% endblock %}
+</head>
+
+<!-- this is the loading icon that shows when a page is loading -->
+<div class="loader-wrapper" id="loader-wrapper">
+    <i class="fa fa-spinner fa-spin fa-5x"></i>
+</div>
+
+<body class="primaryColorBackground">
+
+<header>
+    {% block header %}{% endblock %}
+</header>
+
+<nav class="navbar navbar-light darkestColor">
+    <a class="navbar-brand" href="#" onclick="homeRedirect()">
+        <span class="logoButton">NeMo</span>
+    </a>
+    <a class="nav-item nav-link" href="#" onclick="leagueHomepageRedirect()"><i
+            class="fas fa-home"></i> <span class="navBarText">Home</span></a>
+</nav>
+
+<div class="topSection">
+    <div class="pageTitle">{% block pageTitle %}{% endblock %}</div>
+    <div class="pageSubtitle">{% block pageSubtitle %}{% endblock %}</div>
+    <div class="errorSection">
+        {% if error_message %}
+        <span class="errorMessage">- {{error_message}} -</span>
+        {% endif %}
+        <!-- errorMessageFill is for directly setting the error without reloading the page -->
+        <span class="errorMessage" id="errorMessageFill"></span>
+    </div>
+</div>
+
+<div class="bottomSection">
+    {% block content %}{% endblock %}
+</div>
+
+</body>
+
+</html>

@@ -3,6 +3,9 @@ from pythonping.executor import ResponseList
 
 
 class Pinger:
+    """
+    Uses this library: https://pypi.org/project/pythonping/
+    """
 
     @staticmethod
     def ping(ip: str, **kwargs) -> ResponseList:

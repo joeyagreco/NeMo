@@ -1,4 +1,4 @@
-from flask import redirect, url_for
+from flask import redirect, url_for, render_template
 
 from app import app
 
@@ -13,4 +13,4 @@ def favicon():
 
 @app.route("/")
 def index():
-    return "hello world"
+    return render_template("base.html")
