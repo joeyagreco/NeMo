@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% from "homePage/macros/ipSectionMacro.html" import ipSection %}
+
+{% block head %}
+<title>NeMo</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/homePage/homePage.css') }}">
+<script src="{{ url_for('static', filename='js/homePage.js') }}"></script>
+<!-- Add icon library -->
+<script src="https://kit.fontawesome.com/e509e6f024.js" crossorigin="anonymous"></script>
+{% endblock %}
+
+{% block pageTitle %}<i class="fas fa-home"></i> Home{% endblock %}
+
+{% block pageSubtitle %}{% endblock %}
+
+{% block header %}{% endblock %}
+
+{% block content %}
+<div id="mainSection">
+    {{ipSection("criticalSection","test section")}}
+    {{ipSection("knownSection","known section")}}
+    {{ipSection("unknownSection","unknown section")}}
+</div>
+{% endblock %}

@@ -1,0 +1,20 @@
+#mainSection {
+    display: flex;
+    flex-direction: row;
+    background-color: pink;
+    height: 70%;
+    width: 100%;
+    justify-content: space-around;
+}
+
+#criticalSection {
+    background-color: red;
+}
+
+#knownSection {
+    background-color: green;
+}
+
+#unknownSection {
+    background-color: yellow;
+}
