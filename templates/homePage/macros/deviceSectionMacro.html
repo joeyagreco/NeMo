@@ -1,10 +1,10 @@
 {% from "homePage/macros/deviceMacro.html" import deviceMacro %}
-{% macro deviceSectionMacro(cssId, title, macroInfos) %}
+{% macro deviceSectionMacro(cssId, title, devices) %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/homePage/macros/deviceSectionMacro.css') }}">
 <div class="deviceSection" id="{{cssId}}">
     {{title}}
-    {% for macroInfo in macroInfos %}
-    {{deviceMacro(macroInfo[0], macroInfo[1], macroInfo[2])}}
+    {% for device in devices %}
+    {{deviceMacro(device)}}
     {% endfor %}
 </div>
 {% endmacro %}

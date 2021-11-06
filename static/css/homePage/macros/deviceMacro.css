@@ -4,11 +4,19 @@
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    align-items: center;
     background-color: purple;
+    margin-bottom: 2%;
+}
+
+.deviceLabel {
+    height: 100%;
+    width: 20%;
+    font-size: 50px;
 }
 
 .deviceName {
-    background-color: blue;
+    background-color: lightblue;
 }
 
 .ipAddress {
