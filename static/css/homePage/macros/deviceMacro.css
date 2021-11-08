@@ -1,6 +1,6 @@
 .device {
     width: 100%;
-    height: 10%;
+    height: 5%;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
