@@ -60,6 +60,22 @@
                 <a href="#" id="close-button" onclick="onCloseDeviceForm()"><i
                         class="fas fa-times-circle fa-lg"></i></a>
             </div>
+            <div id="deviceFormInputsSection">
+                <label for="deviceNameInput" class="inputLabel">Device Name</label>
+                <input type="text" class="form-control" id="deviceNameInput" placeholder="Device Name"
+                       autocomplete="off">
+                <label for="ipAddressInput" class="inputLabel">IP Address</label>
+                <input type="text" class="form-control" id="ipAddressInput" placeholder="IP Address" autocomplete="off">
+                <label for="lastAliveField" class="inputLabel">Last Alive</label>
+                <input type="text" class="form-control" id="lastAliveField" readonly autocomplete="off">
+            </div>
+            <div id="deviceFormButtonSection">
+                <button class="btn btn-secondary" id="deleteButton" type="button" onclick="onTransactionDeleteClick()">
+                    <i class="fas fa-trash-alt"></i></button>
+                <button class="btn btn-secondary primaryBackgroundColor" id="submitButton" type="button"
+                        onclick="">Submit
+                </button>
+            </div>
         </div>
     </div>
     {% block content %}{% endblock %}

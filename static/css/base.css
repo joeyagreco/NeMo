@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Play&display=swap');
 
+/* start device popup form styling */
+
 #formBackground {
     display: none;
     width: 100%;
@@ -14,6 +16,7 @@
     display: none;
     flex-direction: column;
     align-content: space-around;
+    justify-content: flex-start;
     background-color: #d9d9d9;
     margin: auto;
     width: 15%;
@@ -31,6 +34,41 @@
     flex-direction: row;
     justify-content: flex-end;
 }
+
+#close-button {
+    color: black;
+}
+
+#close-button:hover {
+    opacity: 0.75;
+}
+
+#deviceFormInputsSection {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10%;
+    background-color: pink;
+}
+
+.inputLabel {
+    margin-top: 5%;
+}
+
+#deviceFormButtonSection {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 10%;
+}
+
+#deleteButton {
+    display: none;
+    margin-right: 5px;
+    background-color: red;
+}
+
+/* end device popup form styling */
 
 html {
   width: 100%;
