@@ -41,7 +41,7 @@ function activateSubmitButtonIfValidInput() {
     const deviceName = document.getElementById("deviceNameInput").value;
     const ipAddress = document.getElementById("ipAddressInput").value;
     // ip format validation source: https://www.w3resource.com/javascript/form/ip-address-validation.php
-    var ipFormat = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+    const ipFormat = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
     if(deviceName.length > 0 && ipAddress.match(ipFormat)) {
         document.getElementById("submitButton").classList.remove("disabled");
         document.getElementById("submitButton").disabled = false;
