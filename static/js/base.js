@@ -15,6 +15,11 @@ function onOpenDeviceForm(deviceName, ipAddress, lastAliveTimestamp) {
     // display delete button if input fields are given
     if(deviceName && ipAddress && lastAliveTimestamp) {
         document.getElementById("deleteButton").style.display = "block";
+        document.getElementById("lastAliveTimestampField").style.display = "block";
+        document.getElementById("lastAliveTimestampFieldLabel").style.display = "block";
+    } else {
+        document.getElementById("lastAliveTimestampField").style.display = "none";
+        document.getElementById("lastAliveTimestampFieldLabel").style.display = "none";
     }
     // set values of all fields
     document.getElementById("deviceNameInput").value = deviceName;
