@@ -37,9 +37,7 @@
     <a class="navbar-brand" href="#" onclick="">
         <span id="logoButton">NeMo</span>
     </a>
-    <a class="nav-item nav-link" href="#" onclick=""><i
-            class="fas fa-home"></i> <span class="navBarText">Home</span></a>
-    <a class="nav-item nav-link" href="#" onclick=""><i class="far fa-plus-square"></i> <span
+    <a class="nav-item nav-link" href="#" onclick="onOpenDeviceForm()"><i class="far fa-plus-square"></i> <span
             class="navBarText"> Add Device</span></a>
 </nav>
 
@@ -56,6 +54,14 @@
 </div>
 
 <div class="bottomSection">
+    <div id="formBackground">
+        <div id="deviceForm">
+            <div id="deviceFormTopSection">
+                <a href="#" id="close-button" onclick="onCloseDeviceForm()"><i
+                        class="fas fa-times-circle fa-lg"></i></a>
+            </div>
+        </div>
+    </div>
     {% block content %}{% endblock %}
 </div>
 
