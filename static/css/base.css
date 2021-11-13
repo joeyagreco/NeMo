@@ -54,6 +54,10 @@
     margin-top: 5%;
 }
 
+#deviceIdHolder {
+    display: none;
+}
+
 #lastAliveTimestampField {
     background-color: silver;
 }

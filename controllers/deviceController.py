@@ -14,3 +14,14 @@ def addDevice():
     device = Device(dataDict["deviceName"], dataDict["ipAddress"])
     print(device)
     return redirect(url_for("index"))
+
+
+@app.route("/devices", methods=["PUT"])
+def updateDevice():
+    # convert the POST request headers into a python dictionary
+    dataStr = request.data.decode("UTF-8")
+    dataDict = ast.literal_eval(dataStr)
+    device = Device(dataDict["deviceName"], dataDict["ipAddress"], id=dataDict["id"],
+                    lastAliveTimestamp=dataDict["lastAliveTimestamp"])
+    print(device)
+    return redirect(url_for("index"))

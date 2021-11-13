@@ -3,6 +3,11 @@ window.post = function(url, data) {
     return fetch(url, {method: "POST", body: JSON.stringify(data)});
 }
 
+// method for sending PUT requests
+window.put = function(url, data) {
+    return fetch(url, {method: "PUT", body: JSON.stringify(data)});
+}
+
 function startLoading() {
     document.querySelector("#loader-wrapper").style.display = "flex";
     document.querySelector("#loader-wrapper").style.visibility = "visible";
@@ -14,7 +19,7 @@ function stopLoading() {
     document.querySelector("body").style.visibility = "visible";
 }
 
-function onOpenDeviceForm(deviceName, ipAddress, lastAliveTimestamp) {
+function onOpenDeviceForm(id, deviceName, ipAddress, lastAliveTimestamp) {
     document.getElementById("deviceForm").style.display = "flex";
     document.getElementById("formBackground").style.display = "block";
     // display delete button if input fields are given
@@ -27,6 +32,7 @@ function onOpenDeviceForm(deviceName, ipAddress, lastAliveTimestamp) {
         document.getElementById("lastAliveTimestampFieldLabel").style.display = "none";
     }
     // set values of all fields
+    document.getElementById("deviceIdHolder").value = id;
     document.getElementById("deviceNameInput").value = deviceName;
     document.getElementById("ipAddressInput").value = ipAddress;
     document.getElementById("lastAliveTimestampField").value = lastAliveTimestamp;
@@ -61,12 +67,35 @@ function setDeviceFormInputFieldsToDefaultValues() {
     document.getElementById("ipAddressInput").value = "";
 }
 
+function onSubmitDeviceForm() {
+    // if we have an id then we want to PUT, else we can POST
+    if(document.getElementById("deviceIdHolder").value == "") {
+        // this is a new device, post
+        postNewDevice();
+    } else {
+        putDevice();
+    }
+}
+
 function postNewDevice() {
     const deviceName = document.getElementById("deviceNameInput").value;
     const ipAddress = document.getElementById("ipAddressInput").value;
     const data = {"deviceName": deviceName, "ipAddress": ipAddress};
     // send POST request
     let fetchPromise = post("/devices", data);
+    fetchPromise.then(response => {
+      window.location.href = response.url;
+    });
+}
+
+function putDevice() {
+    const id = document.getElementById("deviceIdHolder").value
+    const deviceName = document.getElementById("deviceNameInput").value;
+    const ipAddress = document.getElementById("ipAddressInput").value;
+    const lastAliveTimestamp = document.getElementById("lastAliveTimestampField").value;
+    const data = {"id": id, "deviceName": deviceName, "ipAddress": ipAddress, "lastAliveTimestamp": lastAliveTimestamp};
+    // send POST request
+    let fetchPromise = put("/devices", data);
     fetchPromise.then(response => {
       window.location.href = response.url;
     });
