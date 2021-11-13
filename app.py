@@ -6,8 +6,8 @@ from server.Pinger import Pinger
 from server.util.EnvironmentReader import EnvironmentReader
 
 # set directories
-templateDir = os.path.join(os.path.dirname(__file__), "client//templates")
-staticDir = os.path.join(os.path.dirname(__file__), "client//static")
+templateDir = os.path.join(os.path.dirname(__file__), EnvironmentReader.get("TEMPLATE_DIR_RELATIVE_PATH"))
+staticDir = os.path.join(os.path.dirname(__file__), EnvironmentReader.get("STATIC_DIR_RELATIVE_PATH"))
 app = Flask(__name__, template_folder=templateDir, static_folder=staticDir)
 
 if __name__ == "__main__":
