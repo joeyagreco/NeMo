@@ -1,6 +1,7 @@
 {% macro deviceMacro(device) %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/homePage/macros/deviceMacro.css') }}">
-<div class="device" id="{{device.id}}">
+<div class="device" id="{{device.id}}"
+     onclick="onOpenDeviceForm('{{device.name}}', '{{device.ipAddress}}', '{{device.lastAliveTimestamp}}')">
     <div class="deviceLabel deviceName">{{device.name}}</div>
     <div class="deviceLabel ipAddress">{{device.ipAddress}}</div>
     <div class="deviceLabel lastAliveTimestamp">{{device.lastAliveTimestamp}}</div>

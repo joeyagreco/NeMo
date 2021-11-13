@@ -9,24 +9,28 @@ function stopLoading() {
     document.querySelector("body").style.visibility = "visible";
 }
 
-function onOpenDeviceForm() {
+function onOpenDeviceForm(deviceName, ipAddress, lastAliveTimestamp) {
     document.getElementById("deviceForm").style.display = "flex";
     document.getElementById("formBackground").style.display = "block";
+    // set values of all fields
+    document.getElementById("deviceNameInput").value = deviceName;
+    document.getElementById("ipAddressInput").value = ipAddress;
+    document.getElementById("lastAliveTimestampField").value = lastAliveTimestamp;
+    activateSubmitButtonIfValidInput();
 }
 
 function onCloseDeviceForm() {
     document.getElementById("deviceForm").style.display = "none";
     document.getElementById("formBackground").style.display = "none";
-    document.getElementById("delete-button").style.display = "none";
-    document.getElementById("submit-button").classList.add("disabled");
-//    document.getElementById("submit-button").innerHTML = "Submit";
-//    setTransactionPopupToDefaultValues();
+    document.getElementById("deleteButton").style.display = "none";
+    document.getElementById("submitButton").classList.add("disabled");
+    document.getElementById("submitButton").innerHTML = "Submit";
+    setDeviceFormInputFieldsToDefaultValues();
 }
 
 function activateSubmitButtonIfValidInput() {
     const deviceName = document.getElementById("deviceNameInput").value;
     const ipAddress = document.getElementById("ipAddressInput").value;
-    console.log(ipAddress.split(".").length);
     if(deviceName.length > 0 && ipAddress.length >= 7 && ipAddress.split(".").length == 4) {
         document.getElementById("submitButton").classList.remove("disabled");
         document.getElementById("submitButton").disabled = false;
@@ -36,11 +40,16 @@ function activateSubmitButtonIfValidInput() {
     }
 }
 
+function setDeviceFormInputFieldsToDefaultValues() {
+    document.getElementById("deviceNameInput").value = "";
+    document.getElementById("ipAddressInput").value = "";
+}
+
 document.onreadystatechange = function() {
     if (document.readyState !== "complete") {
         startLoading();
     } else {
         stopLoading();
-        onOpenDeviceForm();
+//        onOpenDeviceForm();
     }
 }

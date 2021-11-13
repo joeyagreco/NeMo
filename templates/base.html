@@ -37,8 +37,9 @@
     <a class="navbar-brand" href="#" onclick="">
         <span id="logoButton">NeMo</span>
     </a>
-    <a class="nav-item nav-link" href="#" onclick="onOpenDeviceForm()"><i class="far fa-plus-square"></i> <span
-            class="navBarText"> Add Device</span></a>
+    <a class="nav-item nav-link" href="#" onclick="onOpenDeviceForm('', '', '')"><i class="far fa-plus-square"></i>
+        <span
+                class="navBarText"> Add Device</span></a>
 </nav>
 
 <div class="topSection">
@@ -68,7 +69,7 @@
                 <input type="text" class="form-control" id="ipAddressInput" placeholder="IP Address" autocomplete="off"
                        onkeyup="activateSubmitButtonIfValidInput()">
                 <label for="lastAliveField" class="inputLabel">Last Alive</label>
-                <input type="text" class="form-control" id="lastAliveField" readonly autocomplete="off"
+                <input type="text" class="form-control" id="lastAliveTimestampField" readonly autocomplete="off"
                        value="someTimestamp">
             </div>
             <div id="deviceFormButtonSection">
