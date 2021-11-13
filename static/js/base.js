@@ -12,6 +12,10 @@ function stopLoading() {
 function onOpenDeviceForm(deviceName, ipAddress, lastAliveTimestamp) {
     document.getElementById("deviceForm").style.display = "flex";
     document.getElementById("formBackground").style.display = "block";
+    // display delete button if input fields are given
+    if(deviceName && ipAddress && lastAliveTimestamp) {
+        document.getElementById("deleteButton").style.display = "block";
+    }
     // set values of all fields
     document.getElementById("deviceNameInput").value = deviceName;
     document.getElementById("ipAddressInput").value = ipAddress;
