@@ -6,8 +6,8 @@ from util.EnvironmentReader import EnvironmentReader
 app = Flask(__name__)
 
 if __name__ == "__main__":
-    from views.admin import *
-    from views.device import *
+    from controllers.adminController import *
+    from controllers.deviceController import *
 
     test = Pinger.ping("8.8.8.8")
     print(test)
