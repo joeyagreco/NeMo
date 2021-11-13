@@ -1,3 +1,8 @@
+// method for sending POST requests
+window.post = function(url, data) {
+    return fetch(url, {method: "POST", body: JSON.stringify(data)});
+}
+
 function startLoading() {
     document.querySelector("#loader-wrapper").style.display = "flex";
     document.querySelector("#loader-wrapper").style.visibility = "visible";
@@ -54,6 +59,17 @@ function activateSubmitButtonIfValidInput() {
 function setDeviceFormInputFieldsToDefaultValues() {
     document.getElementById("deviceNameInput").value = "";
     document.getElementById("ipAddressInput").value = "";
+}
+
+function postNewDevice() {
+    const deviceName = document.getElementById("deviceNameInput").value;
+    const ipAddress = document.getElementById("ipAddressInput").value;
+    const data = {"deviceName": deviceName, "ipAddress": ipAddress};
+    // send POST request
+    let fetchPromise = post("/devices", data);
+    fetchPromise.then(response => {
+      window.location.href = response.url;
+    });
 }
 
 document.onreadystatechange = function() {

@@ -7,6 +7,7 @@ app = Flask(__name__)
 
 if __name__ == "__main__":
     from views.admin import *
+    from views.device import *
 
     test = Pinger.ping("8.8.8.8")
     print(test)
