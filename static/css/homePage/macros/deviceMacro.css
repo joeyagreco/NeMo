@@ -12,6 +12,7 @@
 
 .device:hover {
     cursor: pointer;
+    background-color: blue;
 }
 
 .deviceLabel {
