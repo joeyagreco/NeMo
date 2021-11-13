@@ -2,14 +2,14 @@
 {% macro deviceSectionMacro(cssId, title, devices) %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/homePage/macros/deviceSectionMacro.css') }}">
 <div class="deviceSection" id="{{cssId}}">
-    <div id="deviceSectionHeader">{{title}}</div>
-    <div id="deviceHeaders">
-        <div class="deviceHeader deviceNameHeader">Device Name</div>
-        <div class="deviceHeader ipAddressHeader">IP Address</div>
-        <div class="deviceHeader lastAliveTimestampHeader">Last Alive</div>
-    </div>
-    {% for device in devices %}
-    {{deviceMacro(device)}}
-    {% endfor %}
+	<div id="deviceSectionHeader">{{title}}</div>
+	<div id="deviceHeaders">
+		<div class="deviceHeader deviceNameHeader">Device Name</div>
+		<div class="deviceHeader ipAddressHeader">IP Address</div>
+		<div class="deviceHeader lastAliveTimestampHeader">Last Alive</div>
+	</div>
+	{% for device in devices %}
+	{{deviceMacro(device)}}
+	{% endfor %}
 </div>
 {% endmacro %}
