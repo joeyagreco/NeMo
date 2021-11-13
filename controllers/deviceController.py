@@ -25,3 +25,9 @@ def updateDevice():
                     lastAliveTimestamp=dataDict["lastAliveTimestamp"])
     print(device)
     return redirect(url_for("index"))
+
+
+@app.route("/devices/<id>", methods=["DELETE"])
+def deleteDevice(id):
+    print(id)
+    return redirect(url_for("index"))

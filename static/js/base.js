@@ -8,6 +8,11 @@ window.put = function(url, data) {
     return fetch(url, {method: "PUT", body: JSON.stringify(data)});
 }
 
+// method for sending DELETE requests
+window.del= function(url) {
+    return fetch(url, {method: "DELETE"});
+}
+
 function startLoading() {
     document.querySelector("#loader-wrapper").style.display = "flex";
     document.querySelector("#loader-wrapper").style.visibility = "visible";
@@ -75,6 +80,14 @@ function onSubmitDeviceForm() {
     } else {
         putDevice();
     }
+}
+
+function onDeleteDeviceForm() {
+    const id = document.getElementById("deviceIdHolder").value;
+    let fetchPromise = del("/devices/"+id);
+    fetchPromise.then(response => {
+      window.location.href = response.url;
+    });
 }
 
 function postNewDevice() {
