@@ -30,9 +30,10 @@ function onCloseDeviceForm() {
 function activateSubmitButtonIfValidInput() {
     const deviceName = document.getElementById("deviceNameInput").value;
     const ipAddress = document.getElementById("ipAddressInput").value;
+    const deviceRank = document.getElementById("deviceRankDropdownButton").value;
     // ip format validation source: https://www.w3resource.com/javascript/form/ip-address-validation.php
     const ipFormat = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
-    if(deviceName.length > 0 && ipAddress.match(ipFormat)) {
+    if(deviceName.length > 0 && ipAddress.match(ipFormat) && deviceRank != "Rank") {
         document.getElementById("submitButton").classList.remove("disabled");
         document.getElementById("submitButton").disabled = false;
     } else {
@@ -59,7 +60,7 @@ function setRankDropdownValue(rankName) {
             activeElements[i].classList.remove("active");
         }
     }
-    // dont set anything to "active" if given rankName is "Rank"
+    // don't set anything to "active" if given rankName is "Rank"
     if(rankName != "Rank") {
         document.getElementById(rankName + "_option").classList.add("active");
     }
