@@ -81,16 +81,18 @@
 				<input type="text" class="form-control" id="lastAliveTimestampField" readonly autocomplete="off"
 				       value="someTimestamp">
 				<!-- device rank dropdown selection-->
-				<label for="lastAliveTimestampField" id="deviceRankDropdown" class="inputLabel">Rank</label>
+				<label for="deviceRankSection" id="deviceRankDropdown" class="inputLabel">Rank</label>
 				<div id="deviceRankSection">
-					<button class="btn btn-secondary dropdown-toggle" id="dropdownMenuButton" type="button"
+					<button class="btn btn-secondary dropdown-toggle" id="deviceRankDropdownButton"
+					        type="button"
 					        data-toggle="dropdown"
 					        aria-haspopup="true" aria-expanded="false">Rank
 					</button>
 					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 						{% for rank in device_rank_class.list() %}
-						<a class="rankDropdownItem dropdown-item" href="#" onclick=""
-						   id="{{rank.value}}">{{rank.name}}</a>
+						<a class="rankDropdownItem dropdown-item" href="#"
+						   onclick="setRankDropdownValue('{{rank.name}}')"
+						   id="{{rank.name}}_option">{{rank.name}}</a>
 						{% endfor %}
 					</div>
 				</div>
@@ -98,7 +100,7 @@
 			<div id="deviceFormButtonSection">
 				<button class="btn btn-secondary" id="deleteButton" type="button" onclick="onDeleteDeviceForm()">
 					<i class="fas fa-trash-alt"></i></button>
-				<button class="btn btn-secondary primaryBackgroundColor" id="submitButton" type="button"
+				<button class="btn btn-secondary" id="submitButton" type="button"
 				        onclick="onSubmitDeviceForm()" disabled>Submit
 				</button>
 			</div>

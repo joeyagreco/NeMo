@@ -44,6 +44,32 @@ function activateSubmitButtonIfValidInput() {
 function setDeviceFormInputFieldsToDefaultValues() {
     document.getElementById("deviceNameInput").value = "";
     document.getElementById("ipAddressInput").value = "";
+    document.getElementById("deviceRankDropdownButton").value = "Rank";
+    document.getElementById("deviceRankDropdownButton").innerText = "Rank";
+    setRankDropdownValue("Rank");
+}
+
+function setRankDropdownValue(rankName) {
+    // remove all 'active' classes from elements in the device rank dropdown
+    let activeElements = document.getElementsByClassName("active");
+    for(i=0; i<activeElements.length; i++) {
+        // check if this element has the class 'rankDropdownItem' in its classlist
+        if(activeElements[i].classList.contains("rankDropdownItem")) {
+            // then we want to remove the 'active' class
+            activeElements[i].classList.remove("active");
+        }
+    }
+    // dont set anything to "active" if given rankName is "Rank"
+    if(rankName != "Rank") {
+        document.getElementById(rankName + "_option").classList.add("active");
+    }
+    // update button text
+    let button =  document.getElementById("deviceRankDropdownButton")
+    button.value = rankName;
+    button.innerText = rankName;
+
+    // validation for submit button
+    activateSubmitButtonIfValidInput();
 }
 
 function onSubmitDeviceForm() {
