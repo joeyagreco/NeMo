@@ -29,7 +29,7 @@ def updateDevice():
     return redirect(url_for("index"))
 
 
-@app.route("/devices/<id>", methods=["DELETE"])
-def deleteDevice(id):
+@app.route("/devices/<string:id>", methods=["DELETE"])
+def deleteDevice(id: str):
     print(id)
     return redirect(url_for("index"))
