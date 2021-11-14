@@ -1,4 +1,4 @@
-function onOpenDeviceForm(id, deviceName, ipAddress, lastAliveTimestamp) {
+function onOpenDeviceForm(id, deviceName, deviceRank, ipAddress, lastAliveTimestamp) {
     document.getElementById("deviceForm").style.display = "flex";
     document.getElementById("formBackground").style.display = "block";
     // display delete button if input fields are given
@@ -15,6 +15,9 @@ function onOpenDeviceForm(id, deviceName, ipAddress, lastAliveTimestamp) {
     document.getElementById("deviceNameInput").value = deviceName;
     document.getElementById("ipAddressInput").value = ipAddress;
     document.getElementById("lastAliveTimestampField").value = lastAliveTimestamp;
+    document.getElementById("deviceRankDropdownButton").value = deviceRank;
+    document.getElementById("deviceRankDropdownButton").innerText = deviceRank;
+    document.getElementById(deviceRank + "_option").classList.add("active");
     activateSubmitButtonIfValidInput();
 }
 
