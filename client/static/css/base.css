@@ -46,6 +46,8 @@
 #deviceFormInputsSection {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
     margin-top: 10%;
     background-color: pink;
 }
