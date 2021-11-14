@@ -96,8 +96,9 @@ function onDeleteDeviceForm() {
 
 function postNewDevice() {
     const deviceName = document.getElementById("deviceNameInput").value;
+    const deviceRank = document.getElementById("deviceRankDropdownButton").value;
     const ipAddress = document.getElementById("ipAddressInput").value;
-    const data = {"deviceName": deviceName, "ipAddress": ipAddress};
+    const data = {"deviceName": deviceName, "deviceRank": deviceRank, "ipAddress": ipAddress};
     // send POST request
     let fetchPromise = post("/devices", data);
     fetchPromise.then(response => {
@@ -108,9 +109,10 @@ function postNewDevice() {
 function putDevice() {
     const id = document.getElementById("deviceIdHolder").value
     const deviceName = document.getElementById("deviceNameInput").value;
+    const deviceRank = document.getElementById("deviceRankDropdownButton").value;
     const ipAddress = document.getElementById("ipAddressInput").value;
     const lastAliveTimestamp = document.getElementById("lastAliveTimestampField").value;
-    const data = {"id": id, "deviceName": deviceName, "ipAddress": ipAddress, "lastAliveTimestamp": lastAliveTimestamp};
+    const data = {"id": id, "deviceName": deviceName, "deviceRank": deviceRank, "ipAddress": ipAddress, "lastAliveTimestamp": lastAliveTimestamp};
     // send POST request
     let fetchPromise = put("/devices", data);
     fetchPromise.then(response => {

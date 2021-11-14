@@ -11,7 +11,7 @@ class Device:
                                              None)  # https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Timestamp.html
 
     def __str__(self):
-        return f"id: {self.id}\nname: {self.name}\nipAddress: {self.ipAddress}\nlastAliveTimestamp: {self.lastAliveTimestamp}"
+        return f"id: {self.id}\nname: {self.name}\nrank: {self.rank}\nipAddress: {self.ipAddress}\nlastAliveTimestamp: {self.lastAliveTimestamp}"
 
     def __repr__(self):
-        return f"id: {self.id}\nname: {self.name}\nipAddress: {self.ipAddress}\nlastAliveTimestamp: {self.lastAliveTimestamp}"
+        return f"id: {self.id}\nname: {self.name}\nrank: {self.rank}\nipAddress: {self.ipAddress}\nlastAliveTimestamp: {self.lastAliveTimestamp}"
