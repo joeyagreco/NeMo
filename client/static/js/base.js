@@ -2,22 +2,17 @@ function onOpenDeviceForm(id, deviceName, deviceRank, ipAddress, lastAliveTimest
     document.getElementById("deviceForm").style.display = "flex";
     document.getElementById("formBackground").style.display = "block";
     // display delete button if input fields are given
-    if(deviceName && ipAddress && lastAliveTimestamp) {
+    if(id && deviceName && deviceRank && ipAddress && lastAliveTimestamp) {
         document.getElementById("deleteButton").style.display = "block";
-        document.getElementById("lastAliveTimestampField").style.display = "block";
-        document.getElementById("lastAliveTimestampFieldLabel").style.display = "block";
-    } else {
-        document.getElementById("lastAliveTimestampField").style.display = "none";
-        document.getElementById("lastAliveTimestampFieldLabel").style.display = "none";
+        document.getElementById(deviceRank + "_option").classList.add("active");
     }
     // set values of all fields
     document.getElementById("deviceIdHolder").value = id;
     document.getElementById("deviceNameInput").value = deviceName;
     document.getElementById("ipAddressInput").value = ipAddress;
-    document.getElementById("lastAliveTimestampField").value = lastAliveTimestamp;
+    document.getElementById("lastAliveTimestampHolder").value = lastAliveTimestamp;
     document.getElementById("deviceRankDropdownButton").value = deviceRank;
     document.getElementById("deviceRankDropdownButton").innerText = deviceRank;
-    document.getElementById(deviceRank + "_option").classList.add("active");
     activateSubmitButtonIfValidInput();
 }
 
@@ -111,7 +106,7 @@ function putDevice() {
     const deviceName = document.getElementById("deviceNameInput").value;
     const deviceRank = document.getElementById("deviceRankDropdownButton").value;
     const ipAddress = document.getElementById("ipAddressInput").value;
-    const lastAliveTimestamp = document.getElementById("lastAliveTimestampField").value;
+    const lastAliveTimestamp = document.getElementById("lastAliveTimestampHolder").value;
     const data = {"id": id, "deviceName": deviceName, "deviceRank": deviceRank, "ipAddress": ipAddress, "lastAliveTimestamp": lastAliveTimestamp};
     // send POST request
     let fetchPromise = put("/devices", data);

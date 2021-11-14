@@ -59,8 +59,8 @@
     display: none;
 }
 
-#lastAliveTimestampField {
-    background-color: silver;
+#lastAliveTimestampHolder {
+    display: none;
 }
 
 #deviceFormButtonSection {
