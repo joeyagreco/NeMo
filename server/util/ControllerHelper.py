@@ -9,5 +9,5 @@ class ControllerHelper:
     """
 
     @staticmethod
-    def getDictFromRequestObj(requestObj: Request) -> dict:
-        return ast.literal_eval(requestObj.data.decode("UTF-8"))
+    def getDictFromRequestObj(request: Request) -> dict:
+        return ast.literal_eval(request.data.decode("UTF-8"))
