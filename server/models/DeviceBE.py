@@ -12,4 +12,4 @@ class DeviceBE(Device):
         return super().__str__() + f"\npings: {self.pings}"
 
     def __repr__(self):
-        return super().__repr__(self) + f"\npings: {self.pings}"
+        return super().__repr__() + f"\npings: {self.pings}"
