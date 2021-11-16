@@ -2,7 +2,7 @@ from flask import redirect, url_for, request
 
 from app import app
 from server.enums.DeviceRank import DeviceRank
-from server.models.Device import Device
+from server.models.DeviceBE import DeviceBE
 from server.util.ControllerHelper import ControllerHelper
 
 
@@ -10,7 +10,7 @@ from server.util.ControllerHelper import ControllerHelper
 def addDevice():
     # convert the POST request headers into a python dictionary
     dataDict = ControllerHelper.getDictFromRequestObj(request)
-    device = Device(dataDict["deviceName"], DeviceRank.fromStr(dataDict["deviceRank"]), dataDict["ipAddress"])
+    device = DeviceBE(dataDict["deviceName"], DeviceRank.fromStr(dataDict["deviceRank"]), dataDict["ipAddress"])
     print(device)
     return redirect(url_for("index"))
 
@@ -19,9 +19,8 @@ def addDevice():
 def updateDevice():
     # convert the PUT request headers into a python dictionary
     dataDict = ControllerHelper.getDictFromRequestObj(request)
-    device = Device(dataDict["deviceName"], DeviceRank.fromStr(dataDict["deviceRank"]), dataDict["ipAddress"],
-                    id=dataDict["id"],
-                    lastAliveTimestamp=dataDict["lastAliveTimestamp"])
+    device = DeviceBE(dataDict["deviceName"], DeviceRank.fromStr(dataDict["deviceRank"]), dataDict["ipAddress"],
+                      id=dataDict["id"])
     print(device)
     return redirect(url_for("index"))
 
