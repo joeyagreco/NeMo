@@ -3,4 +3,9 @@
 
     --bgColorPrimary: #757575;
     --bgColorSecondary: #FFF;
+
+    /* device */
+    --onlineColor: green;
+    --shakyColor: yellow;
+    --offlineColor: red;
 }

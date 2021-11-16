@@ -12,7 +12,6 @@
 
 .device:hover {
     cursor: pointer;
-    background-color: blue;
 }
 
 .deviceLabel {
@@ -30,4 +29,16 @@
 
 .lastAliveTimestamp {
     background-color: teal;
+}
+
+.device_ONLINE {
+    background-color: var(--onlineColor)
+}
+
+.device_SHAKY {
+    background-color: var(--shakyColor)
+}
+
+.device_OFFLINE {
+    background-color: var(--offlineColor)
 }
