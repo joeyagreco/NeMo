@@ -3,6 +3,10 @@ from server.models.Device import Device
 
 
 class DeviceFE(Device):
+    """
+    This class is used by the front end... it holds values that are used by the backend and some are derived instead of explicitly stored
+    """
+
     def __init__(self, name: str, rank: DeviceRank, ipAddress: str, **params):
         super().__init__(name, rank, ipAddress, **params)
         self.lastAliveTimestamp = params.pop("lastAliveTimestamp",

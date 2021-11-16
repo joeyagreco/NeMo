@@ -3,6 +3,10 @@ from server.models.Device import Device
 
 
 class DeviceBE(Device):
+    """
+    This class is used exclusively by the backend... it shadows what information is stored about this device in the database
+    """
+
     def __init__(self, name: str, rank: DeviceRank, ipAddress: str, **params):
         super().__init__(name, rank, ipAddress, **params)
         # optional
