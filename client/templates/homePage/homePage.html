@@ -17,8 +17,8 @@
 
 {% block content %}
 <div id="deviceSections">
-	{{deviceSectionMacro("criticalSection","Critical", devices)}}
-	{{deviceSectionMacro("knownSection","Known")}}
-	{{deviceSectionMacro("unknownSection","Unknown")}}
+	{{deviceSectionMacro("criticalSection","Critical", critical_devices)}}
+	{{deviceSectionMacro("knownSection","Known", known_devices)}}
+	{{deviceSectionMacro("unknownSection","Unknown", unknown_devices)}}
 </div>
 {% endblock %}
