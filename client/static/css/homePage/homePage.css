@@ -1,3 +1,82 @@
+/* start device popup form styling */
+
+#formBackground {
+    display: none;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    position: absolute;
+    top: 0;
+    z-index: 1;
+}
+
+#deviceForm {
+    display: none;
+    flex-direction: column;
+    align-content: space-around;
+    justify-content: flex-start;
+    background-color: #d9d9d9;
+    margin: auto;
+    width: 15%;
+    padding: 20px;
+    margin-top: 150px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    position: relative;
+    border-radius: 10px;
+}
+
+#deviceFormTopSection {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+#close-button {
+    color: black;
+}
+
+#close-button:hover {
+    opacity: 0.75;
+}
+
+#deviceFormInputsSection {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 10%;
+    background-color: pink;
+}
+
+.inputLabel {
+    margin-top: 5%;
+}
+
+#deviceIdHolder {
+    display: none;
+}
+
+#lastAliveTimestampHolder {
+    display: none;
+}
+
+#deviceFormButtonSection {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 10%;
+}
+
+#deleteButton {
+    display: none;
+    margin-right: 5px;
+    background-color: red;
+}
+
+/* end device popup form styling */
+
 #deviceSections {
     display: flex;
     flex-direction: row;
