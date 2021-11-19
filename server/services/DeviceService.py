@@ -6,12 +6,13 @@ from server.enums.DeviceRank import DeviceRank
 from server.enums.Status import Status
 from server.models.Device import Device
 from server.models.DeviceFE import DeviceFE
+from server.repositories.DeviceRepository import DeviceRepository
 
 
 class DeviceService:
 
     def __init__(self):
-        return
+        self.deviceRepository = DeviceRepository()
 
     def getDevicesByDeviceRank(self, deviceRank: DeviceRank) -> List[Device]:
         d1 = DeviceFE("Router", DeviceRank.CRITICAL, "192.168.1.1", id="1",
