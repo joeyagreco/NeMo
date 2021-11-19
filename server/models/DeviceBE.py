@@ -10,7 +10,7 @@ class DeviceBE(Device):
     def __init__(self, name: str, rank: DeviceRank, ipAddress: str, **params):
         super().__init__(name, rank, ipAddress, **params)
         # optional
-        self.pings = params.pop("pings", [])
+        self.pings = params.pop("pings", [])  # List[Ping]
 
     def __str__(self):
         return super().__str__() + f"\npings: {self.pings}"
