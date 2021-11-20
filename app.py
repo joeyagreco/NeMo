@@ -13,6 +13,7 @@ app = Flask(__name__, template_folder=templateDir, static_folder=staticDir)
 if __name__ == "__main__":
     from server.controllers.adminController import *
     from server.controllers.deviceController import *
+    from server.controllers.settingsController import *
 
     test = Pinger.ping("8.8.8.8")
     print(test)
