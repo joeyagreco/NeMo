@@ -17,35 +17,41 @@
 <div id="settingsInputSection">
 	<label for="pingsToSaveInput" class="inputLabel">Pings to Save</label>
 	<input type="number" class="form-control settingsInput" id="pingsToSaveInput" placeholder=""
+	       onkeyup="activateUpdateButtonIfValidInput()"
 	       value="{{settings.pingsToSave}}"
-	       autocomplete="off" onkeyup="" min="1" step="1">
+	       autocomplete="off" min="1" step="1">
 
 	<label for="pingOnlineThresholdInput" class="inputLabel">Ping Online Threshold (percent)</label>
 	<input type="number" class="form-control settingsInput" id="pingOnlineThresholdInput" placeholder=""
+	       onkeyup="activateUpdateButtonIfValidInput()"
 	       value="{{settings.pingOnlineThreshold}}"
-	       autocomplete="off" onkeyup="" min="1" max="100" step="1">
+	       autocomplete="off" min="1" max="100" step="1">
 
 	<label for="pageRefreshFrequencyInput" class="inputLabel">Page Refresh Frequency (seconds)</label>
 	<input type="number" class="form-control settingsInput" id="pageRefreshFrequencyInput" placeholder=""
+	       onkeyup="activateUpdateButtonIfValidInput()"
 	       value="{{settings.pageRefreshFrequency}}"
-	       autocomplete="off" onkeyup="" min="1">
+	       autocomplete="off" min="1">
 
 	<label for="pingCriticalRefreshFrequencyInput" class="inputLabel">Ping Critical Refresh Frequency (seconds)</label>
 	<input type="number" class="form-control settingsInput" id="pingCriticalRefreshFrequencyInput" placeholder=""
+	       onkeyup="activateUpdateButtonIfValidInput()"
 	       value="{{settings.pingCriticalRefreshFrequency}}"
-	       autocomplete="off" onkeyup="" min="1">
+	       autocomplete="off" min="1">
 
 	<label for="pingKnownRefreshFrequencyInput" class="inputLabel">Ping Known Refresh Frequency (seconds)</label>
 	<input type="number" class="form-control settingsInput" id="pingKnownRefreshFrequencyInput" placeholder=""
+	       onkeyup="activateUpdateButtonIfValidInput()"
 	       value="{{settings.pingKnownRefreshFrequency}}"
-	       autocomplete="off" onkeyup="" min="1">
+	       autocomplete="off" min="1">
 
 	<label for="pingScanFrequencyInput" class="inputLabel">Ping Scan Frequency (seconds)</label>
 	<input type="number" class="form-control settingsInput" id="pingScanFrequencyInput" placeholder=""
+	       onkeyup="activateUpdateButtonIfValidInput()"
 	       value="{{settings.pingScanFrequency}}"
-	       autocomplete="off" onkeyup="" min="1">
+	       autocomplete="off" min="1">
 
-	<button class="btn btn-primary" id="updateSettingsButton" href="#" onclick="putSettings()">
+	<button class="btn btn-primary disabled" id="updateSettingsButton" href="#" onclick="putSettings()" disabled>
 		<i class="fas fa-paper-plane"></i>
 		<span class="navBarText"> Update</span>
 	</button>

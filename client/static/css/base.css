@@ -63,10 +63,6 @@ body {
     color: grey;
 }
 
-button {
-    cursor: pointer;
-}
-
 #logoButton {
     font-size: 200%;
     color: var(--primaryColor);
