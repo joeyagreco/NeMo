@@ -1,7 +1,7 @@
-from flask import redirect, url_for, request
+from flask import request
 
 from app import app
-from server.models.Settings import Settings
+from server.controllers.pageController import *
 from server.util.ControllerHelper import ControllerHelper
 
 
