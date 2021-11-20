@@ -102,7 +102,7 @@ function postNewDevice() {
 }
 
 function putDevice() {
-    const id = document.getElementById("deviceIdHolder").value
+    const id = document.getElementById("deviceIdHolder").value;
     const deviceName = document.getElementById("deviceNameInput").value;
     const deviceRank = document.getElementById("deviceRankDropdownButton").value;
     const ipAddress = document.getElementById("ipAddressInput").value;
@@ -114,7 +114,7 @@ function putDevice() {
         "ipAddress": ipAddress,
         "lastAliveTimestamp": lastAliveTimestamp
     };
-    // send POST request
+    // send PUT request
     let fetchPromise = put("/devices", data);
     fetchPromise.then(response => {
         window.location.href = response.url;
