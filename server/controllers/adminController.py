@@ -17,4 +17,5 @@ def favicon():
 def index():
     deviceService = DeviceService()
     criticalDevices = deviceService.getDevicesByDeviceRank(DeviceRank.CRITICAL)
-    return render_template("homePage/homePage.html", critical_devices=criticalDevices, device_rank_class=DeviceRank)
+    return render_template("devicesPage/devicesPage.html", critical_devices=criticalDevices,
+                           device_rank_class=DeviceRank)

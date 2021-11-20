@@ -1,11 +1,10 @@
 {% extends "base.html" %}
-{% from "homePage/macros/deviceSectionMacro.html" import deviceSectionMacro %}
-{% from "homePage/macros/deviceMacro.html" import deviceMacro %}
+{% from "devicesPage/macros/deviceSectionMacro.html" import deviceSectionMacro %}
+{% from "devicesPage/macros/deviceMacro.html" import deviceMacro %}
 
 {% block head %}
-<title>NeMo</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='css/homePage/homePage.css') }}">
-<script src="{{ url_for('static', filename='js/homePage/homePage.js') }}"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/devicesPage/devicesPage.css') }}">
+<script src="{{ url_for('static', filename='js/devicesPage/devicesPage.js') }}"></script>
 <!-- Add icon library -->
 <script src="https://kit.fontawesome.com/e509e6f024.js" crossorigin="anonymous"></script>
 {% endblock %}
