@@ -1,4 +1,4 @@
-from flask import render_template
+from flask import render_template, url_for, redirect
 
 from app import app
 from server.enums.DeviceRank import DeviceRank
@@ -6,6 +6,10 @@ from server.services.DeviceService import DeviceService
 
 
 @app.route("/")
+def index():
+    return redirect(url_for("devicesPage"))
+
+
 @app.route("/devices-page")
 def devicesPage():
     deviceService = DeviceService()
