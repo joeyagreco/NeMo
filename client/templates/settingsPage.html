@@ -24,31 +24,31 @@
 	<label for="pingOnlineThresholdInput" class="inputLabel">Ping Online Threshold (percent)</label>
 	<input type="number" class="form-control settingsInput" id="pingOnlineThresholdInput" placeholder=""
 	       onkeyup="activateUpdateButtonIfValidInput()"
-	       value="{{settings.pingOnlineThreshold}}"
+	       value="{{settings.pingOnlineThresholdPercentage}}"
 	       autocomplete="off" min="1" max="100" step="1">
 
 	<label for="pageRefreshFrequencyInput" class="inputLabel">Page Refresh Frequency (seconds)</label>
 	<input type="number" class="form-control settingsInput" id="pageRefreshFrequencyInput" placeholder=""
 	       onkeyup="activateUpdateButtonIfValidInput()"
-	       value="{{settings.pageRefreshFrequency}}"
+	       value="{{settings.pageRefreshFrequencySeconds}}"
 	       autocomplete="off" min="1">
 
 	<label for="pingCriticalRefreshFrequencyInput" class="inputLabel">Ping Critical Refresh Frequency (seconds)</label>
 	<input type="number" class="form-control settingsInput" id="pingCriticalRefreshFrequencyInput" placeholder=""
 	       onkeyup="activateUpdateButtonIfValidInput()"
-	       value="{{settings.pingCriticalRefreshFrequency}}"
+	       value="{{settings.pingCriticalRefreshFrequencySeconds}}"
 	       autocomplete="off" min="1">
 
 	<label for="pingKnownRefreshFrequencyInput" class="inputLabel">Ping Known Refresh Frequency (seconds)</label>
 	<input type="number" class="form-control settingsInput" id="pingKnownRefreshFrequencyInput" placeholder=""
 	       onkeyup="activateUpdateButtonIfValidInput()"
-	       value="{{settings.pingKnownRefreshFrequency}}"
+	       value="{{settings.pingKnownRefreshFrequencySeconds}}"
 	       autocomplete="off" min="1">
 
 	<label for="pingScanFrequencyInput" class="inputLabel">Ping Scan Frequency (seconds)</label>
 	<input type="number" class="form-control settingsInput" id="pingScanFrequencyInput" placeholder=""
 	       onkeyup="activateUpdateButtonIfValidInput()"
-	       value="{{settings.pingScanFrequency}}"
+	       value="{{settings.pingScanFrequencySeconds}}"
 	       autocomplete="off" min="1">
 
 	<button class="btn btn-primary disabled" id="updateSettingsButton" href="#" onclick="putSettings()" disabled>

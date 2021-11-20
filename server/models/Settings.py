@@ -1,15 +1,16 @@
 class Settings:
-    def __init__(self, pingsToSave: int, pingOnlineThreshold: int, pageRefreshFrequency: int,
-                 pingCriticalRefreshFrequency: int, pingKnownRefreshFrequency: int, pingScanFrequency: int):
+    def __init__(self, pingsToSave: int, pingOnlineThresholdPercentage: int, pageRefreshFrequencySeconds: int,
+                 pingCriticalRefreshFrequencySeconds: int, pingKnownRefreshFrequencySeconds: int,
+                 pingScanFrequencySeconds: int):
         self.pingsToSave = pingsToSave
-        self.pingOnlineThreshold = pingOnlineThreshold
-        self.pageRefreshFrequency = pageRefreshFrequency
-        self.pingCriticalRefreshFrequency = pingCriticalRefreshFrequency
-        self.pingKnownRefreshFrequency = pingKnownRefreshFrequency
-        self.pingScanFrequency = pingScanFrequency
+        self.pingOnlineThresholdPercentage = pingOnlineThresholdPercentage
+        self.pageRefreshFrequencySeconds = pageRefreshFrequencySeconds
+        self.pingCriticalRefreshFrequencySeconds = pingCriticalRefreshFrequencySeconds
+        self.pingKnownRefreshFrequencySeconds = pingKnownRefreshFrequencySeconds
+        self.pingScanFrequencySeconds = pingScanFrequencySeconds
 
     def __str__(self):
-        return f"pingsToSave: {self.pingsToSave}\npingOnlineThreshold: {self.pingOnlineThreshold}\npageRefreshFrequency: {self.pageRefreshFrequency}\npingCriticalRefreshFrequency: {self.pingCriticalRefreshFrequency}\npingKnownRefreshFrequency: {self.pingKnownRefreshFrequency}\npingScanFrequency: {self.pingScanFrequency}"
+        return f"pingsToSave: {self.pingsToSave}\npingOnlineThresholdPercentage: {self.pingOnlineThresholdPercentage}\npageRefreshFrequencySeconds: {self.pageRefreshFrequencySeconds}\npingCriticalRefreshFrequencySeconds: {self.pingCriticalRefreshFrequencySeconds}\npingKnownRefreshFrequencySeconds: {self.pingKnownRefreshFrequencySeconds}\npingScanFrequencySeconds: {self.pingScanFrequencySeconds}"
 
     def __repr__(self):
-        return f"pingsToSave: {self.pingsToSave}\npingOnlineThreshold: {self.pingOnlineThreshold}\npageRefreshFrequency: {self.pageRefreshFrequency}\npingCriticalRefreshFrequency: {self.pingCriticalRefreshFrequency}\npingKnownRefreshFrequency: {self.pingKnownRefreshFrequency}\npingScanFrequency: {self.pingScanFrequency}"
+        return f"pingsToSave: {self.pingsToSave}\npingOnlineThresholdPercentage: {self.pingOnlineThresholdPercentage}\npageRefreshFrequencySeconds: {self.pageRefreshFrequencySeconds}\npingCriticalRefreshFrequencySeconds: {self.pingCriticalRefreshFrequencySeconds}\npingKnownRefreshFrequencySeconds: {self.pingKnownRefreshFrequencySeconds}\npingScanFrequencySeconds: {self.pingScanFrequencySeconds}"
