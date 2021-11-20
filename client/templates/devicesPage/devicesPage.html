@@ -52,7 +52,8 @@
 		</div>
 		<div id="deviceFormButtonSection">
 			<button class="btn btn-secondary" id="deleteButton" type="button" onclick="onDeleteDeviceForm()">
-				<i class="fas fa-trash-alt"></i></button>
+				<i class="fas fa-trash-alt"></i>
+			</button>
 			<button class="btn btn-secondary" id="submitButton" type="button"
 			        onclick="onSubmitDeviceForm()" disabled>Submit
 			</button>
@@ -60,10 +61,10 @@
 	</div>
 </div>
 <!-- End add device popup -->
-<button class="nav-item nav-link" href="#" onclick="onOpenDeviceForm('', '', 'Rank', '', '')"><i
-		class="far fa-plus-square"></i>
-	<span
-			class="navBarText"> Add Device</span></button>
+<button class="nav-item nav-link" href="#" onclick="onOpenDeviceForm('', '', 'Rank', '', '')">
+	<i class="far fa-plus-square"></i>
+	<span class="navBarText"> Add Device</span>
+</button>
 <div id="deviceSections">
 	{{deviceSectionMacro("criticalSection","Critical", critical_devices)}}
 	{{deviceSectionMacro("knownSection","Known", known_devices)}}
