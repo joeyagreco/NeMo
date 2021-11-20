@@ -14,4 +14,29 @@
 {% block header %}{% endblock %}
 
 {% block content %}
+<div id="settingsInputSection">
+	<label for="pingSaveCountInput" class="inputLabel">Ping Save Count</label>
+	<input type="number" class="form-control settingsInput" id="pingSaveCountInput" placeholder=""
+	       autocomplete="off" onkeyup="" min="1" step="1">
+
+	<label for="pingShakyThresholdInput" class="inputLabel">Ping Shaky Threshold (percent)</label>
+	<input type="number" class="form-control settingsInput" id="pingShakyThresholdInput" placeholder=""
+	       autocomplete="off" onkeyup="" min="1" max="100" step="1">
+
+	<label for="pageRefreshFrequencyInput" class="inputLabel">Page Refresh Frequency (seconds)</label>
+	<input type="number" class="form-control settingsInput" id="pageRefreshFrequencyInput" placeholder=""
+	       autocomplete="off" onkeyup="" min="1">
+
+	<label for="pingCriticalRefreshFrequencyInput" class="inputLabel">Ping Critical Refresh Frequency (seconds)</label>
+	<input type="number" class="form-control settingsInput" id="pingCriticalRefreshFrequencyInput" placeholder=""
+	       autocomplete="off" onkeyup="" min="1">
+
+	<label for="pingKnownRefreshFrequencyInput" class="inputLabel">Ping Known Refresh Frequency (seconds)</label>
+	<input type="number" class="form-control settingsInput" id="pingKnownRefreshFrequencyInput" placeholder=""
+	       autocomplete="off" onkeyup="" min="1">
+
+	<label for="pingScanFrequencyInput" class="inputLabel">Ping Scan Frequency (seconds)</label>
+	<input type="number" class="form-control settingsInput" id="pingScanFrequencyInput" placeholder=""
+	       autocomplete="off" onkeyup="" min="1">
+</div>
 {% endblock %}

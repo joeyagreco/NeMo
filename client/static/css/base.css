@@ -90,3 +90,13 @@ button {
     align-items: center;
     justify-content: center;
 }
+
+/* removes increment/decrement arrows on number input fields */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
