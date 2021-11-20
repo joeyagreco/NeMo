@@ -8,5 +8,4 @@ class SettingsService:
         self.settingsRepository = SettingsRepository()
 
     def getSettings(self) -> Settings:
-        settings = Settings(10, 90, 10, 10, 30, 60)
-        return settings
+        return self.settingsRepository.getSettings()
