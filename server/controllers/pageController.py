@@ -6,7 +6,7 @@ from server.services.DeviceService import DeviceService
 
 
 @app.route("/")
-@app.route("/devices")
+@app.route("/devices-page")
 def devicesPage():
     deviceService = DeviceService()
     criticalDevices = deviceService.getDevicesByDeviceRank(DeviceRank.CRITICAL)
@@ -14,6 +14,6 @@ def devicesPage():
                            device_rank_class=DeviceRank)
 
 
-@app.route("/settings")
+@app.route("/settings-page")
 def settingsPage():
     return render_template("settingsPage.html")

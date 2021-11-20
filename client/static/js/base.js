@@ -1,11 +1,11 @@
 function devicesPageRedirect() {
     startLoading();
-    window.location = "/devices";
+    window.location = "/devices-page";
 }
 
 function settingsPageRedirect() {
     startLoading();
-    window.location = "/settings";
+    window.location = "/settings-page";
 }
 
 document.onreadystatechange = function () {

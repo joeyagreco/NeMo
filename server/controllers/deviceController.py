@@ -12,7 +12,7 @@ def addDevice():
     dataDict = ControllerHelper.getDictFromRequestObj(request)
     device = DeviceBE(dataDict["deviceName"], DeviceRank.fromStr(dataDict["deviceRank"]), dataDict["ipAddress"])
     print(device)
-    return redirect(url_for("index"))
+    return redirect(url_for("devicesPage"))
 
 
 @app.route("/devices", methods=["PUT"])
@@ -22,10 +22,10 @@ def updateDevice():
     device = DeviceBE(dataDict["deviceName"], DeviceRank.fromStr(dataDict["deviceRank"]), dataDict["ipAddress"],
                       id=dataDict["id"])
     print(device)
-    return redirect(url_for("index"))
+    return redirect(url_for("devicesPage"))
 
 
 @app.route("/devices/<string:id>", methods=["DELETE"])
 def deleteDevice(id: str):
     print(id)
-    return redirect(url_for("index"))
+    return redirect(url_for("devicesPage"))
