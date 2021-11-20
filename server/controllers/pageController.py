@@ -2,8 +2,8 @@ from flask import render_template, url_for, redirect
 
 from app import app
 from server.enums.DeviceRank import DeviceRank
-from server.models.Settings import Settings
 from server.services.DeviceService import DeviceService
+from server.services.SettingsService import SettingsService
 
 
 @app.route("/")
@@ -21,5 +21,6 @@ def devicesPage():
 
 @app.route("/settings-page")
 def settingsPage():
-    settings = Settings(10, 90, 10, 10, 30, 60)
+    settingsService = SettingsService()
+    settings = settingsService.getSettings()
     return render_template("settingsPage.html", settings=settings)

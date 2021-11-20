@@ -2,6 +2,7 @@ from flask import request
 
 from app import app
 from server.controllers.pageController import *
+from server.models.Settings import Settings
 from server.util.ControllerHelper import ControllerHelper
 
 
