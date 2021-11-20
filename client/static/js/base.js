@@ -1,6 +1,6 @@
 function devicesPageRedirect() {
     startLoading();
-    window.location = "/";
+    window.location = "/devices";
 }
 
 function settingsPageRedirect() {
