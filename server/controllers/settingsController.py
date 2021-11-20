@@ -10,8 +10,9 @@ from server.util.ControllerHelper import ControllerHelper
 def updateSettings():
     # convert the PUT request headers into a python dictionary
     dataDict = ControllerHelper.getDictFromRequestObj(request)
-    setting = Settings(dataDict["pingsToSave"], dataDict["pingOnlineThreshold"], dataDict["pageRefreshFrequency"],
-                       dataDict["pingCriticalRefreshFrequency"], dataDict["pingKnownRefreshFrequency"],
-                       dataDict["pingScanFrequency"])
-    print(setting)
+    settings = Settings(dataDict["pingsToSave"], dataDict["pingOnlineThreshold"], dataDict["pageRefreshFrequency"],
+                        dataDict["pingCriticalRefreshFrequency"], dataDict["pingKnownRefreshFrequency"],
+                        dataDict["pingScanFrequency"])
+    settingsService = SettingsService()
+    settingsService.updateSettings(settings)
     return redirect(url_for("settingsPage"))

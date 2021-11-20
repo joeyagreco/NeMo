@@ -9,3 +9,6 @@ class SettingsService:
 
     def getSettings(self) -> Settings:
         return self.settingsRepository.getSettings()
+
+    def updateSettings(self, settings: Settings) -> None:
+        self.settingsRepository.updateSettings(settings)
