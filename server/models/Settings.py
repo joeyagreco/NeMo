@@ -1,4 +1,4 @@
-class Setting:
+class Settings:
     def __init__(self, pingsToSave: int, pingOnlineThreshold: int, pageRefreshFrequency: int,
                  pingCriticalRefreshFrequency: int, pingKnownRefreshFrequency: int, pingScanFrequency: int):
         self.pingsToSave = pingsToSave
