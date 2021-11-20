@@ -9,3 +9,8 @@
 .settingsInput {
     width: 5%;
 }
+
+#updateSettingsButton {
+    width: 8%;
+    margin-top: 1%;
+}
