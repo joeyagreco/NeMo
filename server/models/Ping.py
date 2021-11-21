@@ -1,8 +1,8 @@
-from pandas import Timestamp
+from datetime import datetime
 
 
 class Ping:
-    def __init__(self, success: bool, timestamp: Timestamp):
+    def __init__(self, success: bool, timestamp: datetime):
         self.success = success
         self.timestamp = timestamp
 
