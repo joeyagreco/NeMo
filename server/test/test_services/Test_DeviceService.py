@@ -34,3 +34,17 @@ class Test_DeviceService(unittest.TestCase):
         self.assertEqual(1, response[0].id)
         self.assertTrue(datetime.datetime(2020, 1, 2, 10, 11, 13) == response[0].lastAliveTimestamp)
         self.assertEqual(Status.ONLINE, response[0].status)
+
+    @patch("server.services.DeviceService.DeviceRepository.getAllDevices")
+    @patch("server.services.DeviceService.PingRepository.getPingsByDeviceId")
+    @patch("server.services.DeviceService.SettingsService.getSettings")
+    def test_getAllDevicesFE_noPingsForDevice_setsLastAliveTimestampToNone(self, mockGetSettings,
+                                                                           mockGetPingsByDeviceId,
+                                                                           mockGetAllDevices):
+        dummyDeviceBE = DeviceBE("n", DeviceRank.CRITICAL, "1.1.1.1", id=1)
+        dummySettings = Settings(None, 50, None, None, None, None)
+        mockGetAllDevices.return_value = [dummyDeviceBE]
+        mockGetPingsByDeviceId.return_value = []
+        mockGetSettings.return_value = dummySettings
+        response = self.deviceService.getAllDevicesFE()
+        self.assertIsNone(response[0].lastAliveTimestamp)
