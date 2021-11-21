@@ -15,7 +15,10 @@ def index():
 def devicesPage():
     deviceService = DeviceService()
     criticalDevices = deviceService.getDevicesByDeviceRank(DeviceRank.CRITICAL)
-    return render_template("devicesPage/devicesPage.html", critical_devices=criticalDevices,
+    return render_template("devicesPage/devicesPage.html",
+                           critical_devices=criticalDevices,
+                           known_devices=[],
+                           unknown_devices=[],
                            device_rank_class=DeviceRank)
 
 
@@ -23,4 +26,5 @@ def devicesPage():
 def settingsPage():
     settingsService = SettingsService()
     settings = settingsService.getSettings()
-    return render_template("settingsPage.html", settings=settings)
+    return render_template("settingsPage.html",
+                           settings=settings)
