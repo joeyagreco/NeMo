@@ -80,7 +80,7 @@ class DeviceService:
         """
         Checks if the percentage of "alive" pings in this device meets the ping online threshold.
         """
-        # default to online if a device has no pings
+        # default to offline if a device has no pings
         status = Status.OFFLINE
         if device.pings:
             alivePingCount = 0
