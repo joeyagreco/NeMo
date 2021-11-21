@@ -26,6 +26,9 @@ class DeviceService:
     def updateDevice(self, device: DeviceBE) -> None:
         self.deviceRepository.updateDevice(device)
 
+    def addDevice(self, device: DeviceBE) -> None:
+        self.deviceRepository.addDevice(device)
+
     def __getAllDevicesBE(self) -> List[DeviceBE]:
         # get all devices without pings
         allDevices = self.deviceRepository.getAllDevices()

@@ -12,7 +12,8 @@ def addDevice():
     # convert the POST request headers into a python dictionary
     dataDict = ControllerHelper.getDictFromRequestObj(request)
     device = DeviceBE(dataDict["deviceName"], DeviceRank.fromStr(dataDict["deviceRank"]), dataDict["ipAddress"])
-    print(device)
+    deviceService = DeviceService()
+    deviceService.addDevice(device)
     return redirect(url_for("devicesPage"))
 
 

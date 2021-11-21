@@ -26,6 +26,12 @@ class DeviceRepository:
                                         device_rank = '{deviceRank}'
                                     where id = {deviceId}
                                      """
+        self.__addDeviceQuery = """
+                                    insert into {deviceSchemaAndTableName} (device_name, ip_address, device_rank)
+                                    values ('{deviceName}',
+                                            '{ipAddress}',
+                                            '{deviceRank}')
+                                     """
 
     def __connect(self):
         self.__conn = psycopg2.connect(
@@ -60,4 +66,13 @@ class DeviceRepository:
                                                            ipAddress=device.ipAddress,
                                                            deviceRank=device.rank.name,
                                                            deviceId=device.id))
+            self.__conn.commit()
+
+    def addDevice(self, device: DeviceBE) -> None:
+        self.__connect()
+        with self.__conn.cursor() as cursor:
+            cursor.execute(self.__addDeviceQuery.format(deviceSchemaAndTableName=self.__deviceSchemaAndTableName,
+                                                        deviceName=device.name,
+                                                        ipAddress=device.ipAddress,
+                                                        deviceRank=device.rank.name))
             self.__conn.commit()
