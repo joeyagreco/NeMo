@@ -21,3 +21,9 @@ class Test_SettingsService(unittest.TestCase):
         self.assertEqual(4, response.pingCriticalRefreshFrequencySeconds)
         self.assertEqual(5, response.pingKnownRefreshFrequencySeconds)
         self.assertEqual(6, response.pingScanFrequencySeconds)
+
+    @patch("server.services.SettingsService.SettingsRepository.updateSettings")
+    def test_updateSettings_happyPath(self, mockUpdateSettings):
+        dummySettings = Settings(1, 2, 3, 4, 5, 6)
+        self.settingsService.updateSettings(dummySettings)
+        mockUpdateSettings.assert_called_once_with(dummySettings)
