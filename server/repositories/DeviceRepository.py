@@ -2,6 +2,7 @@ from typing import List
 
 import psycopg2
 
+from server.enums.DeviceRank import DeviceRank
 from server.models.DeviceBE import DeviceBE
 from server.util.EnvironmentReader import EnvironmentReader
 
@@ -37,6 +38,6 @@ class DeviceRepository:
             cursor.execute(self.__getAllDevicesQuery)
             results = cursor.fetchall()
             for result in results:
-                allDevices.append(DeviceBE(result[1], result[3], result[2], id=result[0]))
+                allDevices.append(DeviceBE(result[1], DeviceRank.fromStr(result[3]), result[2], id=result[0]))
         self.__close()
         return allDevices
