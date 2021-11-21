@@ -32,6 +32,10 @@ class DeviceRepository:
                                             '{ipAddress}',
                                             '{deviceRank}')
                                      """
+        self.__deleteDeviceQuery = """
+                                    delete from {deviceSchemaAndTableName}
+                                    where id = {deviceId}
+                                    """
 
     def __connect(self):
         self.__conn = psycopg2.connect(
@@ -76,3 +80,10 @@ class DeviceRepository:
                                                         ipAddress=device.ipAddress,
                                                         deviceRank=device.rank.name))
             self.__conn.commit()
+
+    def deleteDevice(self, deviceId: int) -> None:
+        self.__connect()
+        with self.__conn.cursor() as cursor:
+            cursor.execute(self.__deleteDeviceQuery.format(deviceSchemaAndTableName=self.__deviceSchemaAndTableName,
+                                                           deviceId=deviceId))
+        self.__conn.commit()
