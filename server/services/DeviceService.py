@@ -1,6 +1,5 @@
+import datetime
 from typing import List
-
-from pandas import Timestamp
 
 from server.models.DeviceBE import DeviceBE
 from server.models.DeviceFE import DeviceFE
@@ -14,14 +13,6 @@ class DeviceService:
         self.deviceRepository = DeviceRepository()
         self.pingRepository = PingRepository()
 
-    def __getAllDevicesBE(self) -> List[DeviceBE]:
-        # get all devices without pings
-        allDevices = self.deviceRepository.getAllDevices()
-        # get the pings for each device and set them
-        for device in allDevices:
-            device.pings = self.pingRepository.getPingsByDeviceId(device.id)
-        return allDevices
-
     def getAllDevicesFE(self) -> List[DeviceFE]:
         allDevicesBE = self.__getAllDevicesBE()
         allDevicesFE = list()
@@ -33,8 +24,16 @@ class DeviceService:
 
         return allDevicesFE
 
+    def __getAllDevicesBE(self) -> List[DeviceBE]:
+        # get all devices without pings
+        allDevices = self.deviceRepository.getAllDevices()
+        # get the pings for each device and set them
+        for device in allDevices:
+            device.pings = self.pingRepository.getPingsByDeviceId(device.id)
+        return allDevices
+
     @staticmethod
-    def __getLastAliveTimestampForDevice(device: DeviceBE) -> Timestamp:
+    def __getLastAliveTimestampForDevice(device: DeviceBE) -> datetime:
         """
         Returns the most recent ping timestamp for the given device.
         """
@@ -42,4 +41,9 @@ class DeviceService:
         for ping in device.pings:
             if timestamp is None or ping.timestamp > timestamp:
                 timestamp = ping.timestamp
+                print(type(timestamp))
+        if timestamp is not None:
+            # trim the timestamp for the front end
+            timestamp = datetime.datetime(timestamp.year, timestamp.month, timestamp.day, timestamp.hour,
+                                          timestamp.minute, timestamp.second)
         return timestamp
