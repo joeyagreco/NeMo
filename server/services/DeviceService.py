@@ -1,10 +1,12 @@
 import datetime
 from typing import List
 
+from server.enums.Status import Status
 from server.models.DeviceBE import DeviceBE
 from server.models.DeviceFE import DeviceFE
 from server.repositories.DeviceRepository import DeviceRepository
 from server.repositories.PingRepository import PingRepository
+from server.services.SettingsService import SettingsService
 
 
 class DeviceService:
@@ -12,6 +14,7 @@ class DeviceService:
     def __init__(self):
         self.deviceRepository = DeviceRepository()
         self.pingRepository = PingRepository()
+        self.settingsService = SettingsService()
 
     def getAllDevicesFE(self) -> List[DeviceFE]:
         allDevicesBE = self.__getAllDevicesBE()
@@ -20,6 +23,8 @@ class DeviceService:
             deviceFE = DeviceFE(deviceBE.name, deviceBE.rank, deviceBE.ipAddress, id=deviceBE.id)
             # set lastAliveTimestamp
             deviceFE.lastAliveTimestamp = self.__getLastAliveTimestampForDevice(deviceBE)
+            # set status
+            deviceFE.status = self.__getStatusOfDevice(deviceBE)
             allDevicesFE.append(deviceFE)
         return allDevicesFE
 
@@ -54,3 +59,24 @@ class DeviceService:
             timestamp = datetime.datetime(timestamp.year, timestamp.month, timestamp.day, timestamp.hour,
                                           timestamp.minute, timestamp.second)
         return timestamp
+
+    def __getStatusOfDevice(self, device: DeviceBE) -> Status:
+        """
+        Checks if the percentage of "alive" pings in this device meets the ping online threshold.
+        """
+        # default to online if a device has no pings
+        status = Status.OFFLINE
+        if device.pings:
+            alivePingCount = 0
+            for ping in device.pings:
+                if ping.success:
+                    alivePingCount += 1
+            # get ping online threshold
+            pingOnlineThresholdPercentage = self.settingsService.getSettings().pingOnlineThresholdPercentage
+            # dont have to worry about division by 0 here since pings will always have at least 1 in the list at this point
+            actualOnlinePercentage = (alivePingCount / len(device.pings)) * 100
+            if actualOnlinePercentage >= pingOnlineThresholdPercentage:
+                status = Status.ONLINE
+            elif actualOnlinePercentage > 0:
+                status = Status.SHAKY
+        return status
