@@ -68,3 +68,22 @@ class Test_DeviceService(unittest.TestCase):
         mockGetSettings.return_value = dummySettings
         response = self.deviceService.getAllDevicesFE()
         self.assertEqual(Status.SHAKY, response[0].status)
+
+    @patch("server.services.DeviceService.DeviceRepository.getAllDevices")
+    @patch("server.services.DeviceService.PingRepository.getPingsByDeviceId")
+    @patch("server.services.DeviceService.SettingsService.getSettings")
+    def test_getAllDevicesFE_happyPath(self, mockGetSettings, mockGetPingsByDeviceId, mockGetAllDevices):
+        dummyDeviceBECritical = DeviceBE("c", DeviceRank.CRITICAL, "1.1.1.1", id=1)
+        dummyDeviceBEKnown = DeviceBE("k", DeviceRank.KNOWN, "2.2.2.2", id=2)
+        dummyDeviceBEUnknown = DeviceBE("u", DeviceRank.UNKNOWN, "2.2.2.2", id=3)
+        dummySettings = Settings(None, 50, None, None, None, None)
+        mockGetAllDevices.return_value = [dummyDeviceBECritical, dummyDeviceBEKnown, dummyDeviceBEUnknown]
+        mockGetPingsByDeviceId.return_value = []
+        mockGetSettings.return_value = dummySettings
+        response = self.deviceService.getDevicesWrapper()
+        self.assertEqual(1, len(response.criticalDevices))
+        self.assertEqual(1, len(response.knownDevices))
+        self.assertEqual(1, len(response.unknownDevices))
+        self.assertEqual(1, response.criticalDevices[0].id)
+        self.assertEqual(2, response.knownDevices[0].id)
+        self.assertEqual(3, response.unknownDevices[0].id)
