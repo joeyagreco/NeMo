@@ -1,6 +1,10 @@
 class Settings:
-    def __init__(self, pingsToSave: int, pingOnlineThresholdPercentage: int, pageRefreshFrequencySeconds: int,
-                 pingCriticalRefreshFrequencySeconds: int, pingKnownRefreshFrequencySeconds: int,
+    def __init__(self,
+                 pingsToSave: int,
+                 pingOnlineThresholdPercentage: int,
+                 pageRefreshFrequencySeconds: int,
+                 pingCriticalRefreshFrequencySeconds: int,
+                 pingKnownRefreshFrequencySeconds: int,
                  pingScanFrequencySeconds: int):
         self.pingsToSave = pingsToSave
         self.pingOnlineThresholdPercentage = pingOnlineThresholdPercentage
