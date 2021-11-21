@@ -38,9 +38,9 @@ class Test_DeviceService(unittest.TestCase):
     @patch("server.services.DeviceService.DeviceRepository.getAllDevices")
     @patch("server.services.DeviceService.PingRepository.getPingsByDeviceId")
     @patch("server.services.DeviceService.SettingsService.getSettings")
-    def test_getAllDevicesFE_noPingsForDevice_setsLastAliveTimestampToNone(self, mockGetSettings,
-                                                                           mockGetPingsByDeviceId,
-                                                                           mockGetAllDevices):
+    def test_getAllDevicesFE_noPingsForDevice_setsLastAliveTimestampToNone_setsStatusToOffline(self, mockGetSettings,
+                                                                                               mockGetPingsByDeviceId,
+                                                                                               mockGetAllDevices):
         dummyDeviceBE = DeviceBE("n", DeviceRank.CRITICAL, "1.1.1.1", id=1)
         dummySettings = Settings(None, 50, None, None, None, None)
         mockGetAllDevices.return_value = [dummyDeviceBE]
@@ -48,3 +48,23 @@ class Test_DeviceService(unittest.TestCase):
         mockGetSettings.return_value = dummySettings
         response = self.deviceService.getAllDevicesFE()
         self.assertIsNone(response[0].lastAliveTimestamp)
+        self.assertEqual(Status.OFFLINE, response[0].status)
+
+    @patch("server.services.DeviceService.DeviceRepository.getAllDevices")
+    @patch("server.services.DeviceService.PingRepository.getPingsByDeviceId")
+    @patch("server.services.DeviceService.SettingsService.getSettings")
+    def test_getAllDevicesFE_percentageOfPingsAliveGreaterThanZeroButBelowOnlineThresholdPercentage_setsStatusToShaky(
+            self,
+            mockGetSettings,
+            mockGetPingsByDeviceId,
+            mockGetAllDevices):
+        dummyDeviceBE = DeviceBE("n", DeviceRank.CRITICAL, "1.1.1.1", id=1)
+        dummyPing1 = Ping(True, datetime.datetime(2020, 1, 2, 10, 11, 12, 13))
+        dummyPing2 = Ping(False, datetime.datetime(2020, 1, 2, 10, 11, 12, 13))
+        dummyPing3 = Ping(False, datetime.datetime(2020, 1, 2, 10, 11, 12, 13))
+        dummySettings = Settings(None, 50, None, None, None, None)
+        mockGetAllDevices.return_value = [dummyDeviceBE]
+        mockGetPingsByDeviceId.return_value = [dummyPing1, dummyPing2, dummyPing3]
+        mockGetSettings.return_value = dummySettings
+        response = self.deviceService.getAllDevicesFE()
+        self.assertEqual(Status.SHAKY, response[0].status)
