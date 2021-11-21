@@ -7,7 +7,7 @@ class Ping:
         self.timestamp = timestamp
 
     def __str__(self):
-        return f"success: {self.success}\ntimestamp: {self.timestamp}"
+        return f"\nsuccess: {self.success}\ntimestamp: {self.timestamp}"
 
     def __repr__(self):
-        return f"success: {self.success}\ntimestamp: {self.timestamp}"
+        return f"\nsuccess: {self.success}\ntimestamp: {self.timestamp}"

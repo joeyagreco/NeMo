@@ -15,7 +15,8 @@ def index():
 def devicesPage():
     deviceService = DeviceService()
     criticalDevices = deviceService.getDevicesByDeviceRank(DeviceRank.CRITICAL)
-    deviceService.getAllDevices()
+    # deviceService.getAllDevices()
+    deviceService.tmpGetPing()
     return render_template("devicesPage/devicesPage.html",
                            critical_devices=criticalDevices,
                            known_devices=[],

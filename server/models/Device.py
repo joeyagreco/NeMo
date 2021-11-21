@@ -10,7 +10,7 @@ class Device:
         self.id = params.pop("id", None)
 
     def __str__(self):
-        return f"id: {self.id}\nname: {self.name}\nrank: {self.rank}\nipAddress: {self.ipAddress}"
+        return f"\nid: {self.id}\nname: {self.name}\nrank: {self.rank}\nipAddress: {self.ipAddress}"
 
     def __repr__(self):
-        return f"id: {self.id}\nname: {self.name}\nrank: {self.rank}\nipAddress: {self.ipAddress}"
+        return f"\nid: {self.id}\nname: {self.name}\nrank: {self.rank}\nipAddress: {self.ipAddress}"
