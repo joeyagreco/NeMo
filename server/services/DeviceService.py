@@ -27,7 +27,9 @@ class DeviceService:
         return devices
 
     def getAllDevices(self):
-        return self.deviceRepository.getAllDevices()
-
-    def tmpGetPing(self):
-        return self.pingRepository.getPingsByDeviceId(1)
+        # get all devices without pings
+        allDevices = self.deviceRepository.getAllDevices()
+        for device in allDevices:
+            device.pings = self.pingRepository.getPingsByDeviceId(device.id)
+        print(allDevices)
+        return allDevices

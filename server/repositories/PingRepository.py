@@ -41,5 +41,4 @@ class PingRepository:
             for result in results:
                 allPings.append(Ping(result[2], result[3]))
         self.__close()
-        print(allPings)
         return allPings

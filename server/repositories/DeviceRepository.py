@@ -39,5 +39,4 @@ class DeviceRepository:
             for result in results:
                 allDevices.append(DeviceBE(result[1], result[3], result[2], id=result[0]))
         self.__close()
-        print(allDevices)
         return allDevices
