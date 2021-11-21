@@ -72,7 +72,7 @@ class Test_DeviceService(unittest.TestCase):
     @patch("server.services.DeviceService.DeviceRepository.getAllDevices")
     @patch("server.services.DeviceService.PingRepository.getPingsByDeviceId")
     @patch("server.services.DeviceService.SettingsService.getSettings")
-    def test_getAllDevicesFE_happyPath(self, mockGetSettings, mockGetPingsByDeviceId, mockGetAllDevices):
+    def test_getDevicesWrapper_happyPath(self, mockGetSettings, mockGetPingsByDeviceId, mockGetAllDevices):
         dummyDeviceBECritical = DeviceBE("c", DeviceRank.CRITICAL, "1.1.1.1", id=1)
         dummyDeviceBEKnown = DeviceBE("k", DeviceRank.KNOWN, "2.2.2.2", id=2)
         dummyDeviceBEUnknown = DeviceBE("u", DeviceRank.UNKNOWN, "2.2.2.2", id=3)
@@ -87,3 +87,20 @@ class Test_DeviceService(unittest.TestCase):
         self.assertEqual(1, response.criticalDevices[0].id)
         self.assertEqual(2, response.knownDevices[0].id)
         self.assertEqual(3, response.unknownDevices[0].id)
+
+    @patch("server.services.DeviceService.DeviceRepository.updateDevice")
+    def test_updateDevice_happyPath(self, mockUpdateDevice):
+        dummyDeviceBE = DeviceBE("n", DeviceRank.CRITICAL, "1.1.1.1", id=1)
+        self.deviceService.updateDevice(dummyDeviceBE)
+        mockUpdateDevice.assert_called_once_with(dummyDeviceBE)
+
+    @patch("server.services.DeviceService.DeviceRepository.addDevice")
+    def test_addDevice_happyPath(self, mockAddDevice):
+        dummyDeviceBE = DeviceBE("n", DeviceRank.CRITICAL, "1.1.1.1", id=1)
+        self.deviceService.addDevice(dummyDeviceBE)
+        mockAddDevice.assert_called_once_with(dummyDeviceBE)
+
+    @patch("server.services.DeviceService.DeviceRepository.deleteDevice")
+    def test_deleteDevice_happyPath(self, mockDeleteDevice):
+        self.deviceService.deleteDevice(1)
+        mockDeleteDevice.assert_called_once_with(1)
