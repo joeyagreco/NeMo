@@ -14,8 +14,7 @@ def index():
 @app.route("/devices-page")
 def devicesPage():
     deviceService = DeviceService()
-    criticalDevices = deviceService.getDevicesByDeviceRank(DeviceRank.CRITICAL)
-    deviceService.getAllDevices()
+    criticalDevices = deviceService.tmp()
     return render_template("devicesPage/devicesPage.html",
                            critical_devices=criticalDevices,
                            known_devices=[],
