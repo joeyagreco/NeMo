@@ -23,3 +23,6 @@ class DeviceService:
                       lastAliveTimestamp=pd.Timestamp('2017-01-01T12'), status=Status.OFFLINE)
         devices = [d1, d2, d3]
         return devices
+
+    def getAllDevices(self):
+        return self.deviceRepository.getAllDevices()
