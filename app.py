@@ -2,7 +2,6 @@ import os
 
 from flask import Flask
 
-from server.Pinger import Pinger
 from server.util.EnvironmentReader import EnvironmentReader
 
 # set directories
@@ -15,9 +14,6 @@ if __name__ == "__main__":
     from server.controllers.deviceController import *
     from server.controllers.pageController import *
     from server.controllers.settingsController import *
-
-    test = Pinger.ping("8.8.8.8")
-    print(test)
 
     if EnvironmentReader.get("TEST_ENVIRONMENT") == "True":
         app.run(debug=True)
