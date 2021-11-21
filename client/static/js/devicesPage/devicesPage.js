@@ -72,6 +72,7 @@ function setRankDropdownValue(rankName) {
 }
 
 function onSubmitDeviceForm() {
+    startLoading();
     // if we have an id then we want to PUT, else we can POST
     if (document.getElementById("deviceIdHolder").value === "") {
         // this is a new device, post
