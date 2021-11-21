@@ -38,6 +38,9 @@ class DeviceRepository:
             cursor.execute(self.__getAllDevicesQuery)
             results = cursor.fetchall()
             for result in results:
-                allDevices.append(DeviceBE(result[1], DeviceRank.fromStr(result[3]), result[2], id=result[0]))
+                allDevices.append(DeviceBE(result[1],
+                                           DeviceRank.fromStr(result[3]),
+                                           result[2],
+                                           id=result[0]))
         self.__close()
         return allDevices

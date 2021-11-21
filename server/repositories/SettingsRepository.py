@@ -47,7 +47,11 @@ class SettingsRepository:
         with self.__conn.cursor() as cursor:
             cursor.execute(self.__getAllSettingsQuery)
             result = cursor.fetchone()
-            settings = None if result is None else Settings(result[0], result[1], result[2], result[3], result[4],
+            settings = None if result is None else Settings(result[0],
+                                                            result[1],
+                                                            result[2],
+                                                            result[3],
+                                                            result[4],
                                                             result[5])
         self.__close()
         return settings

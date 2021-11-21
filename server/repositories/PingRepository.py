@@ -39,6 +39,7 @@ class PingRepository:
                                                            deviceId=deviceId))
             results = cursor.fetchall()
             for result in results:
-                allPings.append(Ping(result[2], result[3]))
+                allPings.append(Ping(result[2],
+                                     result[3]))
         self.__close()
         return allPings
