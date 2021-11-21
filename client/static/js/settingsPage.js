@@ -1,4 +1,5 @@
 function putSettings() {
+    startLoading();
     const pingsToSave = document.getElementById("pingsToSaveInput").value;
     const pingOnlineThreshold = document.getElementById("pingOnlineThresholdInput").value;
     const pageRefreshFrequency = document.getElementById("pageRefreshFrequencyInput").value;
