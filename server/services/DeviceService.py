@@ -1,9 +1,11 @@
 import datetime
 from typing import List
 
+from server.enums.DeviceRank import DeviceRank
 from server.enums.Status import Status
 from server.models.DeviceBE import DeviceBE
 from server.models.DeviceFE import DeviceFE
+from server.models.DevicesWrapper import DevicesWrapper
 from server.repositories.DeviceRepository import DeviceRepository
 from server.repositories.PingRepository import PingRepository
 from server.services.SettingsService import SettingsService
@@ -15,6 +17,20 @@ class DeviceService:
         self.deviceRepository = DeviceRepository()
         self.pingRepository = PingRepository()
         self.settingsService = SettingsService()
+
+    def getDevicesWrapper(self):
+        allDevices = self.getAllDevicesFE()
+        criticalDevices = list()
+        knownDevices = list()
+        unknownDevices = list()
+        for device in allDevices:
+            if device.rank == DeviceRank.CRITICAL:
+                criticalDevices.append(device)
+            elif device.rank == DeviceRank.KNOWN:
+                knownDevices.append(device)
+            else:
+                unknownDevices.append(device)
+        return DevicesWrapper(criticalDevices, knownDevices, unknownDevices)
 
     def getAllDevicesFE(self) -> List[DeviceFE]:
         allDevicesBE = self.__getAllDevicesBE()

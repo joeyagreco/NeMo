@@ -14,11 +14,11 @@ def index():
 @app.route("/devices-page")
 def devicesPage():
     deviceService = DeviceService()
-    criticalDevices = deviceService.getAllDevicesFE()
+    devicesWrapper = deviceService.getDevicesWrapper()
     return render_template("devicesPage/devicesPage.html",
-                           critical_devices=criticalDevices,
-                           known_devices=[],
-                           unknown_devices=[],
+                           critical_devices=devicesWrapper.criticalDevices,
+                           known_devices=devicesWrapper.knownDevices,
+                           unknown_devices=devicesWrapper.unknownDevices,
                            device_rank_class=DeviceRank)
 
 
