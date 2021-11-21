@@ -21,8 +21,10 @@ class DeviceService:
             # set lastAliveTimestamp
             deviceFE.lastAliveTimestamp = self.__getLastAliveTimestampForDevice(deviceBE)
             allDevicesFE.append(deviceFE)
-
         return allDevicesFE
+
+    def updateDevice(self, device: DeviceBE) -> None:
+        self.deviceRepository.updateDevice(device)
 
     def __getAllDevicesBE(self) -> List[DeviceBE]:
         # get all devices without pings
@@ -41,7 +43,6 @@ class DeviceService:
         for ping in device.pings:
             if timestamp is None or ping.timestamp > timestamp:
                 timestamp = ping.timestamp
-                print(type(timestamp))
         if timestamp is not None:
             # trim the timestamp for the front end
             timestamp = datetime.datetime(timestamp.year, timestamp.month, timestamp.day, timestamp.hour,

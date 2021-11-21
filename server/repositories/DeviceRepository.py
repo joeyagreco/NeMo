@@ -19,6 +19,13 @@ class DeviceRepository:
                                               device_rank
                                         from {self.__deviceSchemaAndTableName}
                                         """
+        self.__updateDeviceQuery = """
+                                    update {deviceSchemaAndTableName} set
+                                        device_name = '{deviceName}',
+                                        ip_address = '{ipAddress}',
+                                        device_rank = '{deviceRank}'
+                                    where id = {deviceId}
+                                     """
 
     def __connect(self):
         self.__conn = psycopg2.connect(
@@ -44,3 +51,13 @@ class DeviceRepository:
                                            id=result[0]))
         self.__close()
         return allDevices
+
+    def updateDevice(self, device: DeviceBE) -> None:
+        self.__connect()
+        with self.__conn.cursor() as cursor:
+            cursor.execute(self.__updateDeviceQuery.format(deviceSchemaAndTableName=self.__deviceSchemaAndTableName,
+                                                           deviceName=device.name,
+                                                           ipAddress=device.ipAddress,
+                                                           deviceRank=device.rank.name,
+                                                           deviceId=device.id))
+            self.__conn.commit()
