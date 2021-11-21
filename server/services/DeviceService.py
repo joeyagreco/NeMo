@@ -35,6 +35,9 @@ class DeviceService:
 
     @staticmethod
     def __getLastAliveTimestampForDevice(device: DeviceBE) -> Timestamp:
+        """
+        Returns the most recent ping timestamp for the given device.
+        """
         timestamp = None
         for ping in device.pings:
             if timestamp is None or ping.timestamp > timestamp:
