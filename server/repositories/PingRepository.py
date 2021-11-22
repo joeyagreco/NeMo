@@ -19,12 +19,10 @@ class PingRepository:
                                     from {pingSchemaAndTableName}
                                     where device_id = {deviceId}
                                    """
-        self.__addPingQuery = """
-                                    insert into {pingSchemaAndTableName} (device_id, success, ping_timestamp)
-                                    values ({deviceId},
-                                            {success},
-                                            '{pingTimestamp}')
-                                     """
+        self.__deletePingsByDeviceIdQuery = """
+                                delete from {pingSchemaAndTableName}
+                                where device_id = {deviceId}
+                              """
 
     def __connect(self):
         self.__conn = psycopg2.connect(
@@ -58,5 +56,14 @@ class PingRepository:
                                                       deviceId=deviceId,
                                                       success=ping.success,
                                                       pingTimestamp=ping.timestamp))
+            self.__conn.commit()
+        self.__close()
+
+    def deletePingsByDeviceId(self, deviceId: int) -> None:
+        self.__connect()
+        with self.__conn.cursor() as cursor:
+            cursor.execute(
+                self.__deletePingsByDeviceIdQuery.format(pingSchemaAndTableName=self.__pingSchemaAndTableName,
+                                                         deviceId=deviceId))
             self.__conn.commit()
         self.__close()

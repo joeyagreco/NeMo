@@ -54,7 +54,7 @@ class DeviceService:
         # add device
         newDeviceId = self.deviceRepository.addDevice(device)
         # add device pings
-        # TODO DELETE THIS
+        # TODO DELETE THIS adding 2 dummy pings
         dp1 = Ping(newDeviceId, True, datetime.datetime.now())
         dp2 = Ping(newDeviceId, True, datetime.datetime.now())
         device.pings = [dp1, dp2]
@@ -62,6 +62,9 @@ class DeviceService:
             self.pingRepository.addPing(ping, newDeviceId)
 
     def deleteDevice(self, deviceId: int) -> None:
+        # delete pings in device first
+        self.pingRepository.deletePingsByDeviceId(deviceId)
+        # delete device
         self.deviceRepository.deleteDevice(deviceId)
 
     def __getAllUpdatedDevicesBE(self) -> List[DeviceBE]:
