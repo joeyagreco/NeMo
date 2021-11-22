@@ -54,7 +54,7 @@ class DeviceService:
         self.deviceRepository.addDevice(device)
         # add device pings
         for ping in device.pings:
-            self.pingRepository.addPing(ping)
+            self.pingRepository.addPing(ping, device.id)
 
     def deleteDevice(self, deviceId: int) -> None:
         self.deviceRepository.deleteDevice(deviceId)
@@ -66,7 +66,7 @@ class DeviceService:
         for device in allDevices:
             device.pings = self.pingRepository.getPingsByDeviceId(device.id)
         # now that we have all of the devices, we need to update them before returning them
-        deviceUpdateWrapper = self.deviceUpdater.getDeviceUpdateWrapper(allDevices)
+        # deviceUpdateWrapper = self.deviceUpdater.getDeviceUpdateWrapper(allDevices)
         # TODO update the toUpdateDevices in the database
         return allDevices
 

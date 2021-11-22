@@ -51,11 +51,11 @@ class PingRepository:
         self.__close()
         return allPings
 
-    def addPing(self, ping: Ping) -> None:
+    def addPing(self, ping: Ping, deviceId: int) -> None:
         self.__connect()
         with self.__conn.cursor() as cursor:
             cursor.execute(self.__addPingQuery.format(pingSchemaAndTableName=self.__pingSchemaAndTableName,
-                                                      deviceId=ping.id,
+                                                      deviceId=deviceId,
                                                       success=ping.success,
                                                       pingTimestamp=ping.timestamp))
             self.__conn.commit()
