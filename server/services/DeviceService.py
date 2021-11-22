@@ -1,6 +1,7 @@
 import datetime
 from typing import List
 
+from server.decorators.utilDecorators import timeMethod
 from server.enums.DeviceRank import DeviceRank
 from server.enums.Status import Status
 from server.models.DeviceBE import DeviceBE
@@ -20,6 +21,7 @@ class DeviceService:
         self.settingsService = SettingsService()
         self.deviceUpdater = DeviceUpdater()
 
+    @timeMethod
     def getDevicesWrapper(self):
         allDevices = self.getAllDevicesFE()
         criticalDevices = list()
@@ -34,6 +36,7 @@ class DeviceService:
                 unknownDevices.append(device)
         return DevicesWrapper(criticalDevices, knownDevices, unknownDevices)
 
+    @timeMethod
     def getAllDevicesFE(self) -> List[DeviceFE]:
         allDevicesBE = self.__getAllUpdatedDevicesBE()
         allDevicesFE = list()
@@ -46,6 +49,7 @@ class DeviceService:
             allDevicesFE.append(deviceFE)
         return allDevicesFE
 
+    @timeMethod
     def updateDeviceAndItsPings(self, device: DeviceBE) -> None:
         # update pings
         # if number of pings for this device is less than the amount of pings we want to save,
@@ -64,6 +68,7 @@ class DeviceService:
         # update device
         self.deviceRepository.updateDevice(device)
 
+    @timeMethod
     def addDeviceAndItsPings(self, device: DeviceBE) -> None:
         # add device
         newDeviceId = self.deviceRepository.addDevice(device)
@@ -77,6 +82,7 @@ class DeviceService:
         # delete device
         self.deviceRepository.deleteDevice(deviceId)
 
+    @timeMethod
     def __getAllUpdatedDevicesBE(self) -> List[DeviceBE]:
         # first, get all devices without pings
         allDevices = self.deviceRepository.getAllDevices()
@@ -105,6 +111,7 @@ class DeviceService:
                                           timestamp.minute, timestamp.second)
         return timestamp
 
+    @timeMethod
     def __getStatusOfDevice(self, device: DeviceBE) -> Status:
         """
         Checks if the percentage of "alive" pings in this device meets the ping online threshold.
