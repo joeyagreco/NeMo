@@ -35,7 +35,8 @@ class DeviceUpdater:
 
     def __pingDevices(self, devices: List[DeviceBE]):
         for device in devices:
-            pingResponse = Pinger.ping(device.ipAddress)
-            print(pingResponse)
+            ping = Pinger.ping(device.ipAddress)
+            device.pings.append(ping)
+            print(ping)
         test = Pinger.ping("192.168.1.201")
         print(test)
