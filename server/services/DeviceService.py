@@ -7,8 +7,7 @@ from server.enums.Status import Status
 from server.models.DeviceBE import DeviceBE
 from server.models.DeviceFE import DeviceFE
 from server.models.DevicesWrapper import DevicesWrapper
-from server.repositories.DeviceRepository import DeviceRepository
-from server.repositories.PingRepository import PingRepository
+from server.repositories.DeviceAndPingRepository import DeviceAndPingRepository
 from server.services.SettingsService import SettingsService
 from server.util.DeviceUpdater import DeviceUpdater
 
@@ -16,10 +15,9 @@ from server.util.DeviceUpdater import DeviceUpdater
 class DeviceService:
 
     def __init__(self):
-        self.deviceRepository = DeviceRepository()
-        self.pingRepository = PingRepository()
-        self.settingsService = SettingsService()
-        self.deviceUpdater = DeviceUpdater()
+        self.__deviceAndPingRepository = DeviceAndPingRepository()
+        self.__settingsService = SettingsService()
+        self.__deviceUpdater = DeviceUpdater()
 
     @timer
     def getDevicesWrapper(self):
@@ -51,46 +49,29 @@ class DeviceService:
 
     @timer
     def updateDeviceAndItsPings(self, device: DeviceBE) -> None:
-        # update pings
         # if number of pings for this device is less than the amount of pings we want to save,
         # just add all of the pings that do NOT have an id
         # if the number of pings for this device is greater than the amount of pings we want to save,
         # we delete the excess pings starting with the OLDEST pings and add the pings that do NOT have an id
-        numberOfPingsToSave = self.settingsService.getSettings().pingsToSave
-        difference = numberOfPingsToSave - len(device.pings)
-        if difference < 0:
-            # delete excess pings
-            self.pingRepository.deleteOldestPingsByDeviceId(device.id, abs(difference))
-        # add all of the pings that do NOT have an id
-        for ping in device.pings:
-            if ping.id is None:
-                self.pingRepository.addPing(ping, device.id)
-        # update device
-        self.deviceRepository.updateDevice(device)
+        numberOfPingsToSave = self.__settingsService.getSettings().pingsToSave
+        difference = abs(numberOfPingsToSave - len(device.pings))
+        self.__deviceAndPingRepository.updateDeviceAndItsPings(device, difference)
 
     @timer
     def addDeviceAndItsPings(self, device: DeviceBE) -> None:
         # add device
-        newDeviceId = self.deviceRepository.addDevice(device)
-        # add device pings
-        for ping in device.pings:
-            self.pingRepository.addPing(ping, newDeviceId)
+        self.__deviceAndPingRepository.addDeviceAndItsPings(device)
 
     def deleteDeviceAndItsPingsByDeviceId(self, deviceId: int) -> None:
-        # delete pings in device first
-        self.pingRepository.deletePingsByDeviceId(deviceId)
         # delete device
-        self.deviceRepository.deleteDevice(deviceId)
+        self.__deviceAndPingRepository.deleteDeviceAndItsPings(deviceId)
 
     @timer
     def __getAllUpdatedDevicesBE(self) -> List[DeviceBE]:
-        # first, get all devices without pings
-        allDevices = self.deviceRepository.getAllDevices()
-        # next, get the pings for each device and set them
-        for device in allDevices:
-            device.pings = self.pingRepository.getPingsByDeviceId(device.id)
-        # now that we have all of the devices, we need to update them before returning them
-        deviceUpdateWrapper = self.deviceUpdater.getDeviceUpdateWrapper(allDevices)
+        # first, get all devices
+        allDevices = self.__deviceAndPingRepository.getAllDevicesAndTheirPings()
+        # now we need to update the devices before returning them
+        deviceUpdateWrapper = self.__deviceUpdater.getDeviceUpdateWrapper(allDevices)
         # update devices that need to be updated in the database
         for device in deviceUpdateWrapper.toUpdateDevices:
             self.updateDeviceAndItsPings(device)
@@ -124,7 +105,7 @@ class DeviceService:
                 if ping.success:
                     alivePingCount += 1
             # get ping online threshold
-            pingOnlineThresholdPercentage = self.settingsService.getSettings().pingOnlineThresholdPercentage
+            pingOnlineThresholdPercentage = self.__settingsService.getSettings().pingOnlineThresholdPercentage
             # dont have to worry about division by 0 here since pings will always have at least 1 in the list at this point
             actualOnlinePercentage = (alivePingCount / len(device.pings)) * 100
             if actualOnlinePercentage >= pingOnlineThresholdPercentage:
