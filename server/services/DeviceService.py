@@ -9,6 +9,7 @@ from server.models.DevicesWrapper import DevicesWrapper
 from server.repositories.DeviceRepository import DeviceRepository
 from server.repositories.PingRepository import PingRepository
 from server.services.SettingsService import SettingsService
+from server.util.DeviceUpdater import DeviceUpdater
 
 
 class DeviceService:
@@ -17,6 +18,7 @@ class DeviceService:
         self.deviceRepository = DeviceRepository()
         self.pingRepository = PingRepository()
         self.settingsService = SettingsService()
+        self.deviceUpdater = DeviceUpdater()
 
     def getDevicesWrapper(self):
         allDevices = self.getAllDevicesFE()
@@ -33,7 +35,7 @@ class DeviceService:
         return DevicesWrapper(criticalDevices, knownDevices, unknownDevices)
 
     def getAllDevicesFE(self) -> List[DeviceFE]:
-        allDevicesBE = self.__getAllDevicesBE()
+        allDevicesBE = self.__getAllUpdatedDevicesBE()
         allDevicesFE = list()
         for deviceBE in allDevicesBE:
             deviceFE = DeviceFE(deviceBE.name, deviceBE.rank, deviceBE.ipAddress, id=deviceBE.id)
@@ -53,12 +55,15 @@ class DeviceService:
     def deleteDevice(self, deviceId: int) -> None:
         self.deviceRepository.deleteDevice(deviceId)
 
-    def __getAllDevicesBE(self) -> List[DeviceBE]:
-        # get all devices without pings
+    def __getAllUpdatedDevicesBE(self) -> List[DeviceBE]:
+        # first, get all devices without pings
         allDevices = self.deviceRepository.getAllDevices()
-        # get the pings for each device and set them
+        # next, get the pings for each device and set them
         for device in allDevices:
             device.pings = self.pingRepository.getPingsByDeviceId(device.id)
+        # now that we have all of the devices, we need to update them before returning them
+        deviceUpdateWrapper = self.deviceUpdater.getDeviceUpdateWrapper(allDevices)
+        # TODO update the toUpdateDevices in the database
         return allDevices
 
     @staticmethod
