@@ -11,8 +11,7 @@ class DeviceUpdater:
     """
 
     def __init__(self):
-        self.__pingCount = 1
-        self.__pingVerbose = False
+        pass
 
     def getDeviceUpdateWrapper(self, devices: List[DeviceBE]) -> DeviceUpdateWrapper:
         """
@@ -36,5 +35,7 @@ class DeviceUpdater:
 
     def __pingDevices(self, devices: List[DeviceBE]):
         for device in devices:
-            pingResponse = Pinger.ping(device.ipAddress, count=self.__pingCount, verbose=self.__pingVerbose)
+            pingResponse = Pinger.ping(device.ipAddress)
             print(pingResponse)
+        test = Pinger.ping("192.168.1.201")
+        print(test)
