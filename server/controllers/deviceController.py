@@ -13,7 +13,7 @@ def addDevice():
     dataDict = ControllerHelper.getDictFromRequestObj(request)
     device = DeviceBE(dataDict["deviceName"], DeviceRank.fromStr(dataDict["deviceRank"]), dataDict["ipAddress"])
     deviceService = DeviceService()
-    deviceService.addDevice(device)
+    deviceService.addDeviceWithPings(device)
     return redirect(url_for("devicesPage"))
 
 
