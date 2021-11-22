@@ -54,10 +54,6 @@ class PingRepository:
     def addPing(self, ping: Ping, deviceId: int) -> None:
         self.__connect()
         with self.__conn.cursor() as cursor:
-            print(self.__addPingQuery.format(pingSchemaAndTableName=self.__pingSchemaAndTableName,
-                                             deviceId=deviceId,
-                                             success=ping.success,
-                                             pingTimestamp=ping.timestamp))
             cursor.execute(self.__addPingQuery.format(pingSchemaAndTableName=self.__pingSchemaAndTableName,
                                                       deviceId=deviceId,
                                                       success=ping.success,
