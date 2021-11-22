@@ -10,7 +10,7 @@ class PingRepository:
 
     def __init__(self):
         self.__conn = None
-        self.__pingSchemaAndTableName = "nemo.ping"
+        self.__PING_SCHEMA_AND_TABLE_NAME = "nemo.ping"
         self.__getPingsByIdQuery = """
                                     select id,
                                     device_id,
@@ -53,7 +53,7 @@ class PingRepository:
         self.__connect()
         allPings = list()
         with self.__conn.cursor() as cursor:
-            cursor.execute(self.__getPingsByIdQuery.format(pingSchemaAndTableName=self.__pingSchemaAndTableName,
+            cursor.execute(self.__getPingsByIdQuery.format(pingSchemaAndTableName=self.__PING_SCHEMA_AND_TABLE_NAME,
                                                            deviceId=deviceId))
             results = cursor.fetchall()
             for result in results:
@@ -66,7 +66,7 @@ class PingRepository:
     def addPing(self, ping: Ping, deviceId: int) -> None:
         self.__connect()
         with self.__conn.cursor() as cursor:
-            cursor.execute(self.__addPingQuery.format(pingSchemaAndTableName=self.__pingSchemaAndTableName,
+            cursor.execute(self.__addPingQuery.format(pingSchemaAndTableName=self.__PING_SCHEMA_AND_TABLE_NAME,
                                                       deviceId=deviceId,
                                                       success=ping.success,
                                                       pingTimestamp=ping.timestamp))
@@ -77,7 +77,7 @@ class PingRepository:
         self.__connect()
         with self.__conn.cursor() as cursor:
             cursor.execute(
-                self.__deletePingsByDeviceIdQuery.format(pingSchemaAndTableName=self.__pingSchemaAndTableName,
+                self.__deletePingsByDeviceIdQuery.format(pingSchemaAndTableName=self.__PING_SCHEMA_AND_TABLE_NAME,
                                                          deviceId=deviceId))
             self.__conn.commit()
         self.__close()
@@ -86,7 +86,7 @@ class PingRepository:
         self.__connect()
         with self.__conn.cursor() as cursor:
             cursor.execute(
-                self.__deleteOldestPingByDeviceIdQuery.format(pingSchemaAndTableName=self.__pingSchemaAndTableName,
+                self.__deleteOldestPingByDeviceIdQuery.format(pingSchemaAndTableName=self.__PING_SCHEMA_AND_TABLE_NAME,
                                                               deviceId=deviceId,
                                                               limit=numberOfPingsToDelete))
             self.__conn.commit()
