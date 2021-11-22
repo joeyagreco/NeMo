@@ -11,13 +11,13 @@ class DeviceRepository:
 
     def __init__(self):
         self.__conn = None
-        self.__deviceSchemaAndTableName = "nemo.device"
+        self.__DEVICE_SCHEMA_AND_TABLE_NAME = "nemo.device"
         self.__getAllDevicesQuery = f"""
                                         select id,
                                               device_name,
                                               ip_address,
                                               device_rank
-                                        from {self.__deviceSchemaAndTableName}
+                                        from {self.__DEVICE_SCHEMA_AND_TABLE_NAME}
                                         """
         self.__updateDeviceQuery = """
                                     update {deviceSchemaAndTableName} set
@@ -66,7 +66,7 @@ class DeviceRepository:
     def updateDevice(self, device: DeviceBE) -> None:
         self.__connect()
         with self.__conn.cursor() as cursor:
-            cursor.execute(self.__updateDeviceQuery.format(deviceSchemaAndTableName=self.__deviceSchemaAndTableName,
+            cursor.execute(self.__updateDeviceQuery.format(deviceSchemaAndTableName=self.__DEVICE_SCHEMA_AND_TABLE_NAME,
                                                            deviceName=device.name,
                                                            ipAddress=device.ipAddress,
                                                            deviceRank=device.rank.name,
@@ -80,7 +80,7 @@ class DeviceRepository:
         """
         self.__connect()
         with self.__conn.cursor() as cursor:
-            cursor.execute(self.__addDeviceQuery.format(deviceSchemaAndTableName=self.__deviceSchemaAndTableName,
+            cursor.execute(self.__addDeviceQuery.format(deviceSchemaAndTableName=self.__DEVICE_SCHEMA_AND_TABLE_NAME,
                                                         deviceName=device.name,
                                                         ipAddress=device.ipAddress,
                                                         deviceRank=device.rank.name))
@@ -92,7 +92,7 @@ class DeviceRepository:
     def deleteDevice(self, deviceId: int) -> None:
         self.__connect()
         with self.__conn.cursor() as cursor:
-            cursor.execute(self.__deleteDeviceQuery.format(deviceSchemaAndTableName=self.__deviceSchemaAndTableName,
+            cursor.execute(self.__deleteDeviceQuery.format(deviceSchemaAndTableName=self.__DEVICE_SCHEMA_AND_TABLE_NAME,
                                                            deviceId=deviceId))
         self.__conn.commit()
         self.__close()
