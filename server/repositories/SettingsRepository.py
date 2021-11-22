@@ -7,11 +7,7 @@ from server.util.EnvironmentReader import EnvironmentReader
 class SettingsRepository:
 
     def __init__(self):
-        self.__conn = psycopg2.connect(
-            host=EnvironmentReader.get("DB_HOST"),
-            database=EnvironmentReader.get("DB_DATABASE"),
-            user=EnvironmentReader.get("DB_USER"),
-            password=EnvironmentReader.get("DB_PASSWORD"))
+        self.__conn = None
         # since we will only ever have 1 row in this table, we know the id will always be 1
         self.__SETTINGS_ROW_ID = 1
         self.__SETTINGS_SCHEMA_AND_TABLE_NAME = "nemo.setting"
@@ -35,10 +31,18 @@ class SettingsRepository:
                                         where id = {settingsRowId}
                                      """
 
-    def __del__(self):
+    def __connect(self):
+        self.__conn = psycopg2.connect(
+            host=EnvironmentReader.get("DB_HOST"),
+            database=EnvironmentReader.get("DB_DATABASE"),
+            user=EnvironmentReader.get("DB_USER"),
+            password=EnvironmentReader.get("DB_PASSWORD"))
+
+    def __close(self):
         self.__conn.close()
 
     def getSettings(self) -> Settings:
+        self.__connect()
         with self.__conn.cursor() as cursor:
             cursor.execute(self.__getAllSettingsQuery)
             result = cursor.fetchone()
@@ -48,9 +52,11 @@ class SettingsRepository:
                                                             result[3],
                                                             result[4],
                                                             result[5])
+        self.__close()
         return settings
 
     def updateSettings(self, settings: Settings) -> None:
+        self.__connect()
         with self.__conn.cursor() as cursor:
             cursor.execute(self.__updateSettingsQuery.format(
                 settingsSchemaAndTableName=self.__SETTINGS_SCHEMA_AND_TABLE_NAME,
@@ -62,3 +68,4 @@ class SettingsRepository:
                 pingScanFrequencySeconds=settings.pingScanFrequencySeconds,
                 settingsRowId=self.__SETTINGS_ROW_ID))
             self.__conn.commit()
+        self.__close()
