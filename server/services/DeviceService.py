@@ -6,6 +6,7 @@ from server.enums.Status import Status
 from server.models.DeviceBE import DeviceBE
 from server.models.DeviceFE import DeviceFE
 from server.models.DevicesWrapper import DevicesWrapper
+from server.models.Ping import Ping
 from server.repositories.DeviceRepository import DeviceRepository
 from server.repositories.PingRepository import PingRepository
 from server.services.SettingsService import SettingsService
@@ -51,10 +52,14 @@ class DeviceService:
 
     def addDevice(self, device: DeviceBE) -> None:
         # add device
-        self.deviceRepository.addDevice(device)
+        newDeviceId = self.deviceRepository.addDevice(device)
         # add device pings
+        # TODO DELETE THIS
+        dp1 = Ping(newDeviceId, True, datetime.datetime.now())
+        dp2 = Ping(newDeviceId, True, datetime.datetime.now())
+        device.pings = [dp1, dp2]
         for ping in device.pings:
-            self.pingRepository.addPing(ping, device.id)
+            self.pingRepository.addPing(ping, newDeviceId)
 
     def deleteDevice(self, deviceId: int) -> None:
         self.deviceRepository.deleteDevice(deviceId)

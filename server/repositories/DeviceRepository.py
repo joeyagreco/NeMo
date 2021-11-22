@@ -31,6 +31,7 @@ class DeviceRepository:
                                     values ('{deviceName}',
                                             '{ipAddress}',
                                             '{deviceRank}')
+                                    returning id
                                      """
         self.__deleteDeviceQuery = """
                                     delete from {deviceSchemaAndTableName}
@@ -71,15 +72,22 @@ class DeviceRepository:
                                                            deviceRank=device.rank.name,
                                                            deviceId=device.id))
             self.__conn.commit()
+        self.__close()
 
-    def addDevice(self, device: DeviceBE) -> None:
+    def addDevice(self, device: DeviceBE) -> int:
+        """
+        Returns the ID of the device added.
+        """
         self.__connect()
         with self.__conn.cursor() as cursor:
             cursor.execute(self.__addDeviceQuery.format(deviceSchemaAndTableName=self.__deviceSchemaAndTableName,
                                                         deviceName=device.name,
                                                         ipAddress=device.ipAddress,
                                                         deviceRank=device.rank.name))
+            newDeviceId = cursor.fetchone()[0]
             self.__conn.commit()
+        self.__close()
+        return newDeviceId
 
     def deleteDevice(self, deviceId: int) -> None:
         self.__connect()
@@ -87,3 +95,4 @@ class DeviceRepository:
             cursor.execute(self.__deleteDeviceQuery.format(deviceSchemaAndTableName=self.__deviceSchemaAndTableName,
                                                            deviceId=deviceId))
         self.__conn.commit()
+        self.__close()

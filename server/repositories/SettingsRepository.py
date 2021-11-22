@@ -69,3 +69,4 @@ class SettingsRepository:
                 pingScanFrequencySeconds=settings.pingScanFrequencySeconds,
                 settingsRowId=self.__settingsRowId))
             self.__conn.commit()
+        self.__close()
