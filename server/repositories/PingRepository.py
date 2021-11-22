@@ -32,10 +32,10 @@ class PingRepository:
                               """
         self.__deleteOldestPingByDeviceIdQuery = """
                                                 delete from {pingSchemaAndTableName}
-                                                where id = (
+                                                where id in (
                                                 select id from nemo.ping
                                                 where device_id = {deviceId}
-                                                order by ping_timestamp asc limit 1)
+                                                order by ping_timestamp asc limit {limit})
                                                  """
 
     def __connect(self):
@@ -82,11 +82,12 @@ class PingRepository:
             self.__conn.commit()
         self.__close()
 
-    def deleteOldestPingByDeviceId(self, deviceId: int) -> None:
+    def deleteOldestPingsByDeviceId(self, deviceId: int, numberOfPingsToDelete: int) -> None:
         self.__connect()
         with self.__conn.cursor() as cursor:
             cursor.execute(
                 self.__deleteOldestPingByDeviceIdQuery.format(pingSchemaAndTableName=self.__pingSchemaAndTableName,
-                                                              deviceId=deviceId))
+                                                              deviceId=deviceId,
+                                                              limit=numberOfPingsToDelete))
             self.__conn.commit()
         self.__close()

@@ -48,11 +48,19 @@ class DeviceService:
 
     def updateDeviceAndItsPings(self, device: DeviceBE) -> None:
         # update pings
-        # delete current pings associated with this device and add the new pings
-        self.pingRepository.deletePingsByDeviceId(device.id)
-        # add device pings
+        # if number of pings for this device is less than the amount of pings we want to save,
+        # just add all of the pings that do NOT have an id
+        # if the number of pings for this device is greater than the amount of pings we want to save,
+        # we delete the excess pings starting with the OLDEST pings and add the pings that do NOT have an id
+        numberOfPingsToSave = self.settingsService.getSettings().pingsToSave
+        difference = numberOfPingsToSave - len(device.pings)
+        if difference < 0:
+            # delete excess pings
+            self.pingRepository.deleteOldestPingsByDeviceId(device.id, abs(difference))
+        # add all of the pings that do NOT have an id
         for ping in device.pings:
-            self.pingRepository.addPing(ping, device.id)
+            if ping.id is None:
+                self.pingRepository.addPing(ping, device.id)
         # update device
         self.deviceRepository.updateDevice(device)
 
