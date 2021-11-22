@@ -30,6 +30,13 @@ class PingRepository:
                                 {success},
                                '{pingTimestamp}')
                               """
+        self.__deleteOldestPingByDeviceIdQuery = """
+                                                delete from {pingSchemaAndTableName}
+                                                where id = (
+                                                select id from nemo.ping
+                                                where device_id = {deviceId}
+                                                order by ping_timestamp asc limit 1)
+                                                 """
 
     def __connect(self):
         self.__conn = psycopg2.connect(
@@ -72,5 +79,14 @@ class PingRepository:
             cursor.execute(
                 self.__deletePingsByDeviceIdQuery.format(pingSchemaAndTableName=self.__pingSchemaAndTableName,
                                                          deviceId=deviceId))
+            self.__conn.commit()
+        self.__close()
+
+    def deleteOldestPingByDeviceId(self, deviceId: int) -> None:
+        self.__connect()
+        with self.__conn.cursor() as cursor:
+            cursor.execute(
+                self.__deleteOldestPingByDeviceIdQuery.format(pingSchemaAndTableName=self.__pingSchemaAndTableName,
+                                                              deviceId=deviceId))
             self.__conn.commit()
         self.__close()
