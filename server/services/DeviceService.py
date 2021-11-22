@@ -47,11 +47,13 @@ class DeviceService:
         return allDevicesFE
 
     def updateDeviceAndItsPings(self, device: DeviceBE) -> None:
+        # update pings
         # delete current pings associated with this device and add the new pings
         self.pingRepository.deletePingsByDeviceId(device.id)
         # add device pings
         for ping in device.pings:
             self.pingRepository.addPing(ping, device.id)
+        # update device
         self.deviceRepository.updateDevice(device)
 
     def addDeviceAndItsPings(self, device: DeviceBE) -> None:
