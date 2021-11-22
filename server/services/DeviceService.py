@@ -74,9 +74,11 @@ class DeviceService:
         for device in allDevices:
             device.pings = self.pingRepository.getPingsByDeviceId(device.id)
         # now that we have all of the devices, we need to update them before returning them
-        # deviceUpdateWrapper = self.deviceUpdater.getDeviceUpdateWrapper(allDevices)
-        # TODO update the toUpdateDevices in the database
-        return allDevices
+        deviceUpdateWrapper = self.deviceUpdater.getDeviceUpdateWrapper(allDevices)
+        # update devices that need to be updated in the database
+        for device in deviceUpdateWrapper.toUpdateDevices:
+            self.updateDeviceAndItsPings(device)
+        return deviceUpdateWrapper.toUpdateDevices + deviceUpdateWrapper.toNotUpdateDevices
 
     @staticmethod
     def __getLastAliveTimestampForDevice(device: DeviceBE) -> datetime:

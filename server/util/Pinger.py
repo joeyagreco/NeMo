@@ -21,7 +21,7 @@ class Pinger:
         """
         This takes a pingResponse that sends out 1 packet, if that packet is lost, the ping was a failure
         """
-        newPing = Ping(pingResponse.packets_lost == 0, cls.__getCurrentTimestamp())
+        newPing = Ping(None, pingResponse.packets_lost == 0, cls.__getCurrentTimestamp())
         return newPing
 
     @staticmethod

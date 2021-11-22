@@ -37,6 +37,3 @@ class DeviceUpdater:
         for device in devices:
             ping = Pinger.ping(device.ipAddress)
             device.pings.append(ping)
-            print(ping)
-        test = Pinger.ping("192.168.1.201")
-        print(test)

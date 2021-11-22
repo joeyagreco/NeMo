@@ -23,6 +23,13 @@ class PingRepository:
                                 delete from {pingSchemaAndTableName}
                                 where device_id = {deviceId}
                               """
+        self.__addPingQuery = """
+                                insert into {pingSchemaAndTableName}
+                                (device_id, success, ping_timestamp)
+                                values ({deviceId},
+                                {success},
+                               '{pingTimestamp}')
+                              """
 
     def __connect(self):
         self.__conn = psycopg2.connect(
