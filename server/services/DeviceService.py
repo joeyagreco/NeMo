@@ -54,14 +54,14 @@ class DeviceService:
             self.pingRepository.addPing(ping, device.id)
         self.deviceRepository.updateDevice(device)
 
-    def addDeviceWithPings(self, device: DeviceBE) -> None:
+    def addDeviceAndItsPings(self, device: DeviceBE) -> None:
         # add device
         newDeviceId = self.deviceRepository.addDevice(device)
         # add device pings
         for ping in device.pings:
             self.pingRepository.addPing(ping, newDeviceId)
 
-    def deleteDeviceAndPingsByDeviceId(self, deviceId: int) -> None:
+    def deleteDeviceAndItsPingsByDeviceId(self, deviceId: int) -> None:
         # delete pings in device first
         self.pingRepository.deletePingsByDeviceId(deviceId)
         # delete device

@@ -97,10 +97,10 @@ class Test_DeviceService(unittest.TestCase):
     @patch("server.services.DeviceService.DeviceRepository.addDevice")
     def test_addDevice_happyPath(self, mockAddDevice):
         dummyDeviceBE = DeviceBE("n", DeviceRank.CRITICAL, "1.1.1.1", id=1)
-        self.deviceService.addDeviceWithPings(dummyDeviceBE)
+        self.deviceService.addDeviceAndItsPings(dummyDeviceBE)
         mockAddDevice.assert_called_once_with(dummyDeviceBE)
 
     @patch("server.services.DeviceService.DeviceRepository.deleteDevice")
     def test_deleteDevice_happyPath(self, mockDeleteDevice):
-        self.deviceService.deleteDeviceAndPingsByDeviceId(1)
+        self.deviceService.deleteDeviceAndItsPingsByDeviceId(1)
         mockDeleteDevice.assert_called_once_with(1)
