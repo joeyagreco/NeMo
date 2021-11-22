@@ -10,7 +10,7 @@ class PingRepository:
 
     def __init__(self):
         self.__conn = None
-        self.pingSchemaAndTableName = "nemo.ping"
+        self.__pingSchemaAndTableName = "nemo.ping"
         self.__getPingsByIdQuery = """
                                     select id,
                                     device_id,
@@ -19,6 +19,12 @@ class PingRepository:
                                     from {pingSchemaAndTableName}
                                     where device_id = {deviceId}
                                    """
+        self.__addPingQuery = """
+                                    insert into {pingSchemaAndTableName} (device_id, success, ping_timestamp)
+                                    values ({deviceId},
+                                            {success},
+                                            {pingTimestamp})
+                                     """
 
     def __connect(self):
         self.__conn = psycopg2.connect(
@@ -35,11 +41,21 @@ class PingRepository:
         self.__connect()
         allPings = list()
         with self.__conn.cursor() as cursor:
-            cursor.execute(self.__getPingsByIdQuery.format(pingSchemaAndTableName=self.pingSchemaAndTableName,
+            cursor.execute(self.__getPingsByIdQuery.format(pingSchemaAndTableName=self.__pingSchemaAndTableName,
                                                            deviceId=deviceId))
             results = cursor.fetchall()
             for result in results:
-                allPings.append(Ping(result[2],
+                allPings.append(Ping(result[0],
+                                     result[2],
                                      result[3]))
         self.__close()
         return allPings
+
+    def addPing(self, ping: Ping) -> None:
+        self.__connect()
+        with self.__conn.cursor() as cursor:
+            cursor.execute(self.__addPingQuery.format(pingSchemaAndTableName=self.__pingSchemaAndTableName,
+                                                      deviceId=ping.id,
+                                                      success=ping.success,
+                                                      pingTimestamp=ping.timestamp))
+            self.__conn.commit()

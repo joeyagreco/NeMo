@@ -50,7 +50,11 @@ class DeviceService:
         self.deviceRepository.updateDevice(device)
 
     def addDevice(self, device: DeviceBE) -> None:
+        # add device
         self.deviceRepository.addDevice(device)
+        # add device pings
+        for ping in device.pings:
+            self.pingRepository.addPing(ping)
 
     def deleteDevice(self, deviceId: int) -> None:
         self.deviceRepository.deleteDevice(deviceId)
