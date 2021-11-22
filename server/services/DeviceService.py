@@ -61,7 +61,7 @@ class DeviceService:
         for ping in device.pings:
             self.pingRepository.addPing(ping, newDeviceId)
 
-    def deleteDevice(self, deviceId: int) -> None:
+    def deleteDeviceAndPingsByDeviceId(self, deviceId: int) -> None:
         # delete pings in device first
         self.pingRepository.deletePingsByDeviceId(deviceId)
         # delete device

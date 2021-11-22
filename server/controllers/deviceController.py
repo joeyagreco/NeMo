@@ -33,5 +33,5 @@ def updateDevice():
 @app.route("/devices/<int:deviceId>", methods=["DELETE"])
 def deleteDevice(deviceId: int):
     deviceService = DeviceService()
-    deviceService.deleteDevice(deviceId)
+    deviceService.deleteDeviceAndPingsByDeviceId(deviceId)
     return redirect(url_for("devicesPage"))

@@ -102,5 +102,5 @@ class Test_DeviceService(unittest.TestCase):
 
     @patch("server.services.DeviceService.DeviceRepository.deleteDevice")
     def test_deleteDevice_happyPath(self, mockDeleteDevice):
-        self.deviceService.deleteDevice(1)
+        self.deviceService.deleteDeviceAndPingsByDeviceId(1)
         mockDeleteDevice.assert_called_once_with(1)
