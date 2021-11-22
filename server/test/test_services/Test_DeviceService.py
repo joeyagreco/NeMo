@@ -91,7 +91,7 @@ class Test_DeviceService(unittest.TestCase):
     @patch("server.services.DeviceService.DeviceRepository.updateDevice")
     def test_updateDevice_happyPath(self, mockUpdateDevice):
         dummyDeviceBE = DeviceBE("n", DeviceRank.CRITICAL, "1.1.1.1", id=1)
-        self.deviceService.updateDevice(dummyDeviceBE)
+        self.deviceService.updateDeviceAndItsPings(dummyDeviceBE)
         mockUpdateDevice.assert_called_once_with(dummyDeviceBE)
 
     @patch("server.services.DeviceService.DeviceRepository.addDevice")

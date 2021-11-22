@@ -26,7 +26,7 @@ def updateDevice():
                       dataDict["ipAddress"],
                       id=dataDict["id"])
     deviceService = DeviceService()
-    deviceService.updateDevice(device)
+    deviceService.updateDeviceAndItsPings(device)
     return redirect(url_for("devicesPage"))
 
 
