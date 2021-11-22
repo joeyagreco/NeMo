@@ -1,6 +1,6 @@
 from typing import List
 
-from server.decorators.utilDecorators import timeMethod
+from server.decorators.utilDecorators import timer
 from server.models.DeviceBE import DeviceBE
 from server.models.DeviceUpdateWrapper import DeviceUpdateWrapper
 from server.util.Pinger import Pinger
@@ -14,7 +14,7 @@ class DeviceUpdater:
     def __init__(self):
         pass
 
-    @timeMethod
+    @timer
     def getDeviceUpdateWrapper(self, devices: List[DeviceBE]) -> DeviceUpdateWrapper:
         """
         Updates the devices from the given list that need to be pinged and splits them from the devices that do not need to be pinged.
@@ -25,7 +25,7 @@ class DeviceUpdater:
         self.__pingDevices(deviceUpdateWrapper.toUpdateDevices)
         return deviceUpdateWrapper
 
-    @timeMethod
+    @timer
     def __splitDevices(self, devices: List[DeviceBE]) -> DeviceUpdateWrapper:
         """
         Determines which devices need to be pinged and separates them from the devices that do not need to be pinged.
@@ -36,7 +36,7 @@ class DeviceUpdater:
         toUpdateDevices = devices
         return DeviceUpdateWrapper(toUpdateDevices, toNotUpdateDevices)
 
-    @timeMethod
+    @timer
     def __pingDevices(self, devices: List[DeviceBE]):
         for device in devices:
             ping = Pinger.ping(device.ipAddress)

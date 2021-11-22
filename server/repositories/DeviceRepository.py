@@ -2,7 +2,7 @@ from typing import List
 
 import psycopg2
 
-from server.decorators.utilDecorators import timeMethod
+from server.decorators.utilDecorators import timer
 from server.enums.DeviceRank import DeviceRank
 from server.models.DeviceBE import DeviceBE
 from server.util.EnvironmentReader import EnvironmentReader
@@ -50,7 +50,7 @@ class DeviceRepository:
         self.__conn.close()
         self.__conn = None
 
-    @timeMethod
+    @timer
     def getAllDevices(self) -> List[DeviceBE]:
         self.__connect()
         allDevices = list()
@@ -65,7 +65,7 @@ class DeviceRepository:
         self.__close()
         return allDevices
 
-    @timeMethod
+    @timer
     def updateDevice(self, device: DeviceBE) -> None:
         self.__connect()
         with self.__conn.cursor() as cursor:
@@ -77,7 +77,7 @@ class DeviceRepository:
             self.__conn.commit()
         self.__close()
 
-    @timeMethod
+    @timer
     def addDevice(self, device: DeviceBE) -> int:
         """
         Returns the ID of the device added.

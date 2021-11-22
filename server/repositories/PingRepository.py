@@ -2,7 +2,7 @@ from typing import List
 
 import psycopg2
 
-from server.decorators.utilDecorators import timeMethod
+from server.decorators.utilDecorators import timer
 from server.models.Ping import Ping
 from server.util.EnvironmentReader import EnvironmentReader
 
@@ -50,7 +50,7 @@ class PingRepository:
         self.__conn.close()
         self.__conn = None
 
-    @timeMethod
+    @timer
     def getPingsByDeviceId(self, deviceId: int) -> List[Ping]:
         self.__connect()
         allPings = list()
@@ -65,7 +65,7 @@ class PingRepository:
         self.__close()
         return allPings
 
-    @timeMethod
+    @timer
     def addPing(self, ping: Ping, deviceId: int) -> None:
         self.__connect()
         with self.__conn.cursor() as cursor:
@@ -76,7 +76,7 @@ class PingRepository:
             self.__conn.commit()
         self.__close()
 
-    @timeMethod
+    @timer
     def deletePingsByDeviceId(self, deviceId: int) -> None:
         self.__connect()
         with self.__conn.cursor() as cursor:
@@ -86,7 +86,7 @@ class PingRepository:
             self.__conn.commit()
         self.__close()
 
-    @timeMethod
+    @timer
     def deleteOldestPingsByDeviceId(self, deviceId: int, numberOfPingsToDelete: int) -> None:
         self.__connect()
         with self.__conn.cursor() as cursor:

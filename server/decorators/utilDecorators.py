@@ -2,7 +2,7 @@ import time
 from functools import wraps
 
 
-def timeMethod(func):
+def timer(func):
     # runs timer on wrapped function
     @wraps(func)
     def wrapper(*args, **kwargs):
