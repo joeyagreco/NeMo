@@ -83,6 +83,7 @@ function onSubmitDeviceForm() {
 }
 
 function onDeleteDeviceForm() {
+    startLoading();
     const id = document.getElementById("deviceIdHolder").value;
     let fetchPromise = del("/devices/" + id);
     fetchPromise.then(response => {
