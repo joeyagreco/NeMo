@@ -114,3 +114,8 @@
 #unknownSection {
     background-color: yellow;
 }
+
+#refreshPageButton {
+    background-color: orange;
+    color: black;
+}

@@ -121,3 +121,8 @@ function putDevice() {
         window.location.href = response.url;
     });
 }
+
+function refreshPage() {
+    startLoading();
+    location.reload();
+}
