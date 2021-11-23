@@ -1,6 +1,7 @@
 from flask import render_template, url_for, redirect
 
 from app import app
+from server.decorators.utilDecorators import timer
 from server.enums.DeviceRank import DeviceRank
 from server.services.DeviceService import DeviceService
 from server.services.SettingsService import SettingsService
@@ -11,6 +12,7 @@ def index():
     return redirect(url_for("devicesPage"))
 
 
+@timer
 @app.route("/devices-page")
 def devicesPage():
     deviceService = DeviceService()
@@ -22,6 +24,7 @@ def devicesPage():
                            device_rank_class=DeviceRank)
 
 
+@timer
 @app.route("/settings-page")
 def settingsPage():
     settingsService = SettingsService()

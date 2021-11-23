@@ -1,3 +1,4 @@
+import threading
 from typing import List
 
 from server.decorators.utilDecorators import timer
@@ -14,7 +15,6 @@ class DeviceUpdater:
     def __init__(self):
         pass
 
-    @timer
     def getDeviceUpdateWrapper(self, devices: List[DeviceBE]) -> DeviceUpdateWrapper:
         """
         Updates the devices from the given list that need to be pinged and splits them from the devices that do not need to be pinged.
@@ -25,7 +25,6 @@ class DeviceUpdater:
         self.__pingDevices(deviceUpdateWrapper.toUpdateDevices)
         return deviceUpdateWrapper
 
-    @timer
     def __splitDevices(self, devices: List[DeviceBE]) -> DeviceUpdateWrapper:
         """
         Determines which devices need to be pinged and separates them from the devices that do not need to be pinged.
@@ -37,7 +36,20 @@ class DeviceUpdater:
         return DeviceUpdateWrapper(toUpdateDevices, toNotUpdateDevices)
 
     @timer
-    def __pingDevices(self, devices: List[DeviceBE]):
+    def __pingDevices(self, devices: List[DeviceBE]) -> None:
+        # use threading to speed up pinging all devices
+        # create threads, start them, and put them into a list
+        threads = list()
         for device in devices:
-            ping = Pinger.ping(device.ipAddress)
-            device.pings.append(ping)
+            thread = threading.Thread(target=self.__pingAndUpdate, args=(device,))
+            thread.start()
+            threads.append(thread)
+        # join all of the threads
+        for thread in threads:
+            thread.join()
+
+    def __pingAndUpdate(self, device: DeviceBE) -> None:
+        # a helper method
+        # calls the ping() method and adds the resulting ping response to the list of pings in the given device
+        ping = Pinger.ping(device.ipAddress)
+        device.pings.append(ping)

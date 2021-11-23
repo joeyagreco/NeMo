@@ -1,7 +1,6 @@
 import datetime
 from typing import List
 
-from server.decorators.utilDecorators import timer
 from server.enums.DeviceRank import DeviceRank
 from server.enums.Status import Status
 from server.models.DeviceBE import DeviceBE
@@ -19,7 +18,6 @@ class DeviceService:
         self.__settingsService = SettingsService()
         self.__deviceUpdater = DeviceUpdater()
 
-    @timer
     def getDevicesWrapper(self):
         allDevices = self.getAllDevicesFE()
         criticalDevices = list()
@@ -34,7 +32,6 @@ class DeviceService:
                 unknownDevices.append(device)
         return DevicesWrapper(criticalDevices, knownDevices, unknownDevices)
 
-    @timer
     def getAllDevicesFE(self) -> List[DeviceFE]:
         allDevicesBE = self.__getAllUpdatedDevicesBE()
         allDevicesFE = list()
@@ -51,7 +48,6 @@ class DeviceService:
             allDevicesFE.append(deviceFE)
         return allDevicesFE
 
-    @timer
     def updateDeviceAndItsPings(self, device: DeviceBE) -> None:
         # if number of pings for this device is less than the amount of pings we want to save,
         # just add all of the pings that do NOT have an id
@@ -61,7 +57,6 @@ class DeviceService:
         difference = abs(numberOfPingsToSave - len(device.pings))
         self.__deviceAndPingRepository.updateDeviceAndItsPings(device, difference)
 
-    @timer
     def addDeviceAndItsPings(self, device: DeviceBE) -> None:
         # add device
         self.__deviceAndPingRepository.addDeviceAndItsPings(device)
@@ -70,7 +65,6 @@ class DeviceService:
         # delete device
         self.__deviceAndPingRepository.deleteDeviceAndItsPings(deviceId)
 
-    @timer
     def __getAllUpdatedDevicesBE(self) -> List[DeviceBE]:
         # first, get all devices
         allDevices = self.__deviceAndPingRepository.getAllDevicesAndTheirPings()
@@ -96,7 +90,6 @@ class DeviceService:
                                           timestamp.minute, timestamp.second)
         return timestamp
 
-    @timer
     def __getStatusOfDevice(self, device: DeviceBE) -> Status:
         """
         Checks if the percentage of "alive" pings in this device meets the ping online threshold.

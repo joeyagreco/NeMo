@@ -15,7 +15,9 @@ def timer(func):
         ret = func(*args, **kwargs)
         endTime = time.time()
         print(f"<< Ending function: {funcName}")
-        print(f"--- Function {funcName} ran in {str(endTime - startTime).split('.')[0]} seconds ---\n")
+        runtimeSecondsList = str(endTime - startTime).split('.')
+        runtimeSeconds = f"{runtimeSecondsList[0]}.{runtimeSecondsList[1][:2]}"
+        print(f"--- Function {funcName} ran in {runtimeSeconds} seconds ---\n")
         return ret
 
     return wrapper
