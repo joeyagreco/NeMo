@@ -17,6 +17,7 @@ class DeviceService:
         self.__deviceAndPingRepository = DeviceAndPingRepository()
         self.__settingsService = SettingsService()
         self.__deviceUpdater = DeviceUpdater()
+        self.__settings = self.__settingsService.getSettings()
 
     def getDevicesWrapper(self):
         allDevices = self.getAllDevicesFE()
@@ -53,8 +54,7 @@ class DeviceService:
         # just add all of the pings that do NOT have an id
         # if the number of pings for this device is greater than the amount of pings we want to save,
         # we delete the excess pings starting with the OLDEST pings and add the pings that do NOT have an id
-        numberOfPingsToSave = self.__settingsService.getSettings().pingsToSave
-        difference = abs(numberOfPingsToSave - len(device.pings))
+        difference = abs(self.__settings.pingsToSave - len(device.pings))
         self.__deviceAndPingRepository.updateDeviceAndItsPings(device, difference)
 
     def addDeviceAndItsPings(self, device: DeviceBE) -> None:
@@ -102,7 +102,7 @@ class DeviceService:
                 if ping.success:
                     alivePingCount += 1
             # get ping online threshold
-            pingOnlineThresholdPercentage = self.__settingsService.getSettings().pingOnlineThresholdPercentage
+            pingOnlineThresholdPercentage = self.__settings.pingOnlineThresholdPercentage
             # dont have to worry about division by 0 here since pings will always have at least 1 in the list at this point
             actualOnlinePercentage = (alivePingCount / len(device.pings)) * 100
             if actualOnlinePercentage >= pingOnlineThresholdPercentage:
