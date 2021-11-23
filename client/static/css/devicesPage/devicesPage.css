@@ -90,6 +90,7 @@
 
 #addDeviceButton {
     background-color: forestgreen;
+    color: black;
     width: 8%;
     height: 100%;
 }
