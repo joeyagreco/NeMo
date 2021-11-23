@@ -43,7 +43,7 @@ class DeviceService:
             # format lastAliveTimestamp to be more readable in the UI
             # strftime formatting: https://www.programiz.com/python-programming/datetime/strftime
             # works on windows machines only: https://stackoverflow.com/questions/9525944/python-datetime-formatting-without-zero-padding
-            deviceFE.lastAliveTimestamp = lastAliveTimestamp.strftime("%A %#m/%#d %#I:%M %p")
+            deviceFE.lastAliveTimestamp = lastAliveTimestamp.strftime("%a. %#m/%#d %#I:%M %p")
             # set status
             deviceFE.status = self.__getStatusOfDevice(deviceBE)
             allDevicesFE.append(deviceFE)
