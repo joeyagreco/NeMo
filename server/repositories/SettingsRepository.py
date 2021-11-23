@@ -1,5 +1,6 @@
 import psycopg2
 
+from server.decorators.utilDecorators import timer
 from server.models.Settings import Settings
 from server.util.EnvironmentReader import EnvironmentReader
 
@@ -41,6 +42,7 @@ class SettingsRepository:
     def __close(self):
         self.__conn.close()
 
+    @timer
     def getSettings(self) -> Settings:
         self.__connect()
         with self.__conn.cursor() as cursor:
@@ -55,6 +57,7 @@ class SettingsRepository:
         self.__close()
         return settings
 
+    @timer
     def updateSettings(self, settings: Settings) -> None:
         self.__connect()
         with self.__conn.cursor() as cursor:

@@ -3,6 +3,7 @@ from typing import List
 import psycopg2
 from psycopg2.extras import execute_values
 
+from server.decorators.utilDecorators import timer
 from server.enums.DeviceRank import DeviceRank
 from server.models.DeviceBE import DeviceBE
 from server.models.Ping import Ping
@@ -78,6 +79,7 @@ class DeviceAndPingRepository:
         self.__conn.close()
         self.__conn = None
 
+    @timer
     def getAllDevicesAndTheirPings(self) -> List[DeviceBE]:
         self.__connect()
         allDevices = list()
@@ -105,6 +107,7 @@ class DeviceAndPingRepository:
         self.__close()
         return allDevices
 
+    @timer
     def addDeviceAndItsPings(self, device: DeviceBE) -> int:
         """
         Returns the ID of the device added.
@@ -127,6 +130,7 @@ class DeviceAndPingRepository:
         self.__close()
         return newDeviceId
 
+    @timer
     def deleteDeviceAndItsPings(self, deviceId: int) -> None:
         self.__connect()
         with self.__conn.cursor() as cursor:
@@ -140,6 +144,7 @@ class DeviceAndPingRepository:
         self.__conn.commit()
         self.__close()
 
+    @timer
     def updateDeviceAndItsPings(self, device: DeviceBE, deleteNOldestPings: int):
         # deleteNOldestPings is the number of pings to delete starting with the oldest and moving towards the newest
         # if number of pings for this device is less than the amount of pings we want to save,
