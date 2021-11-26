@@ -7,6 +7,7 @@ from server.models.DeviceBE import DeviceBE
 from server.models.DeviceFE import DeviceFE
 from server.models.DevicesWrapper import DevicesWrapper
 from server.repositories.DeviceAndPingRepository import DeviceAndPingRepository
+from server.services.IPRangeService import IPRangeService
 from server.services.SettingsService import SettingsService
 from server.util.DeviceUpdater import DeviceUpdater
 
@@ -16,6 +17,7 @@ class DeviceService:
     def __init__(self):
         self.__deviceAndPingRepository = DeviceAndPingRepository()
         self.__settingsService = SettingsService()
+        self.__ipRangeService = IPRangeService()
         self.__deviceUpdater = DeviceUpdater()
         self.__settings = self.__settingsService.getSettings()
 
@@ -66,14 +68,27 @@ class DeviceService:
         self.__deviceAndPingRepository.deleteDeviceAndItsPings(deviceId)
 
     def __getAllUpdatedDevicesBE(self) -> List[DeviceBE]:
-        # first, get all devices
+        # first, get all critical and known devices
         allDevices = self.__deviceAndPingRepository.getAllDevicesAndTheirPings()
         # now we need to update the devices before returning them
         deviceUpdateWrapper = self.__deviceUpdater.getDeviceUpdateWrapper(allDevices)
         # update devices that need to be updated in the database
         for device in deviceUpdateWrapper.toUpdateDevices:
             self.updateDeviceAndItsPings(device)
-        return deviceUpdateWrapper.toUpdateDevices + deviceUpdateWrapper.toNotUpdateDevices
+        # get all devices in ranges we want to scan and add it to our list
+        allUnknownDevices = self.__getAllLiveDevicesInIPRanges()
+        return deviceUpdateWrapper.toUpdateDevices + deviceUpdateWrapper.toNotUpdateDevices + allUnknownDevices
+
+    def __getAllLiveDevicesInIPRanges(self) -> List[DeviceBE]:
+        # first, get all devices that can appear from any ip range
+        ipRanges = self.__ipRangeService.getAllIPRanges()
+        # next, get all the possible devices that could appear in this range
+        ipRangeDevices = list()
+        for ipRange in ipRanges:
+            ipRangeDevices += self.__ipRangeService.getAllDevicesFromIPRange(ipRange)
+        # ping all devices and get the ones that are alive
+        liveDevices = self.__deviceUpdater.getLiveDevices(ipRangeDevices)
+        return liveDevices
 
     @staticmethod
     def __getLastAliveTimestampForDevice(device: DeviceBE) -> datetime:

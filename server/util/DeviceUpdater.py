@@ -25,6 +25,18 @@ class DeviceUpdater:
         self.__pingDevices(deviceUpdateWrapper.toUpdateDevices)
         return deviceUpdateWrapper
 
+    def getLiveDevices(self, devices: List[DeviceBE]) -> List[DeviceBE]:
+        """
+        pings all the given devices and returns a list of devices that are alive
+        """
+        self.__pingDevices(devices)
+        # check which devices most recent ping is alive and add them to a list
+        liveDevices = list()
+        for device in devices:
+            if len(device.pings) >= 1 and device.pings[-1].success:
+                liveDevices.append(device)
+        return liveDevices
+
     def __splitDevices(self, devices: List[DeviceBE]) -> DeviceUpdateWrapper:
         """
         Determines which devices need to be pinged and separates them from the devices that do not need to be pinged.
