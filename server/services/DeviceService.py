@@ -76,16 +76,29 @@ class DeviceService:
         for device in deviceUpdateWrapper.toUpdateDevices:
             self.updateDeviceAndItsPings(device)
         # get all devices in ranges we want to scan and add it to our list
-        allUnknownDevices = self.__getAllLiveDevicesInIPRanges()
+        # we pass in a list of devices we already have so we can avoid re-pinging them and adding them to the unknown list
+        allUnknownDevices = self.__getAllLiveDevicesInIPRanges(
+            deviceUpdateWrapper.toUpdateDevices + deviceUpdateWrapper.toNotUpdateDevices)
         return deviceUpdateWrapper.toUpdateDevices + deviceUpdateWrapper.toNotUpdateDevices + allUnknownDevices
 
-    def __getAllLiveDevicesInIPRanges(self) -> List[DeviceBE]:
+    def __getAllLiveDevicesInIPRanges(self, existingDevices: List[DeviceBE]) -> List[DeviceBE]:
         # first, get all devices that can appear from any ip range
         ipRanges = self.__ipRangeService.getAllIPRanges()
         # next, get all the possible devices that could appear in this range
         ipRangeDevices = list()
         for ipRange in ipRanges:
             ipRangeDevices += self.__ipRangeService.getAllDevicesFromIPRange(ipRange)
+
+        # filter out any devices that appear in the existingDevices list
+        existingIPs = [d.ipAddress for d in existingDevices]
+
+        # helper function for filtering
+        def filterOutExisting(device):
+            if device.ipAddress in existingIPs:
+                return False
+            return True
+
+        ipRangeDevices = list(filter(filterOutExisting, ipRangeDevices))
         # ping all devices and get the ones that are alive
         liveDevices = self.__deviceUpdater.getLiveDevices(ipRangeDevices)
         return liveDevices

@@ -23,5 +23,5 @@ class IPRangeService:
         startNumber = int(ipRange.rangeStart.split(".")[-1])
         endNumber = int(ipRange.rangeEnd.split(".")[-1])
         for num in range(startNumber, endNumber + 1):
-            devices.append(DeviceBE("", self.__UNKNOWN_DEVICE_RANK, f"{ipBase}.{num}"))
+            devices.append(DeviceBE("UNKNOWN", self.__UNKNOWN_DEVICE_RANK, f"{ipBase}.{num}"))
         return devices
