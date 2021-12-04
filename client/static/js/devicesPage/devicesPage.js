@@ -1,4 +1,8 @@
-function onOpenDeviceForm(id, deviceName, deviceRank, ipAddress, lastAliveTimestamp) {
+function onOpenDeviceForm(id, deviceName, deviceRank, ipAddress, lastAliveTimestamp, isEditable) {
+    // do nothing if device isn't editable
+    if (isEditable === "False") {
+        return;
+    }
     document.getElementById("deviceForm").style.display = "flex";
     document.getElementById("formBackground").style.display = "block";
     // display delete button if input fields are given
