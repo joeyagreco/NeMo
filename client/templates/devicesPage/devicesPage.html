@@ -72,8 +72,8 @@
 	</button>
 </div>
 <div id="deviceSections">
-	{{deviceSectionMacro("criticalSection","Critical", critical_devices)}}
-	{{deviceSectionMacro("knownSection","Known", known_devices)}}
-	{{deviceSectionMacro("unknownSection","Unknown", unknown_devices)}}
+	{{deviceSectionMacro("criticalSection","Critical", critical_devices, True)}}
+	{{deviceSectionMacro("knownSection","Known", known_devices, True)}}
+	{{deviceSectionMacro("unknownSection","Unknown", unknown_devices, False)}}
 </div>
 {% endblock %}

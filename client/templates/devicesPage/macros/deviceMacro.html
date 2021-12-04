@@ -1,6 +1,6 @@
-{% macro deviceMacro(device) %}
+{% macro deviceMacro(device, isEditable) %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/devicesPage/macros/deviceMacro.css') }}">
-<div class="device device_{{device.status.name}}" id="{{device.id}}"
+<div class="device device_{{device.status.name}} {{'deviceEditable' if isEditable}}" id="{{device.id}}"
      onclick="onOpenDeviceForm('{{device.id}}','{{device.name}}', '{{device.rank.name}}', '{{device.ipAddress}}', '{{device.lastAliveTimestamp}}')">
 	<div class="deviceLabel deviceName">{{device.name}}</div>
 	<div class="deviceLabel ipAddress">{{device.ipAddress}}</div>

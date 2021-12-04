@@ -1,5 +1,5 @@
 {% from "devicesPage/macros/deviceMacro.html" import deviceMacro %}
-{% macro deviceSectionMacro(cssId, title, devices) %}
+{% macro deviceSectionMacro(cssId, title, devices, hasEditableDevices) %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/devicesPage/macros/deviceSectionMacro.css') }}">
 <div class="deviceSection" id="{{cssId}}">
 	<div id="deviceSectionHeader">{{title}}</div>
@@ -9,7 +9,7 @@
 		<div class="deviceHeader lastAliveTimestampHeader">Last Alive</div>
 	</div>
 	{% for device in devices %}
-	{{deviceMacro(device)}}
+	{{deviceMacro(device, hasEditableDevices)}}
 	{% endfor %}
 </div>
 {% endmacro %}
