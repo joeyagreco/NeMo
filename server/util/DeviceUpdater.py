@@ -37,7 +37,8 @@ class DeviceUpdater:
                 liveDevices.append(device)
         return liveDevices
 
-    def __splitDevices(self, devices: List[DeviceBE]) -> DeviceUpdateWrapper:
+    @staticmethod
+    def __splitDevices(devices: List[DeviceBE]) -> DeviceUpdateWrapper:
         """
         Determines which devices need to be pinged and separates them from the devices that do not need to be pinged.
         """
@@ -60,7 +61,8 @@ class DeviceUpdater:
         for thread in threads:
             thread.join()
 
-    def __pingAndUpdate(self, device: DeviceBE) -> None:
+    @staticmethod
+    def __pingAndUpdate(device: DeviceBE) -> None:
         # a helper method
         # calls the ping() method and adds the resulting ping response to the list of pings in the given device
         ping = Pinger.ping(device.ipAddress)
