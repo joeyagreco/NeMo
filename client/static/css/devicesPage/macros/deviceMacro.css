@@ -10,6 +10,10 @@
     border-radius: 10px;
 }
 
+.device:hover {
+    cursor: default;
+}
+
 .deviceEditable:hover {
     cursor: pointer;
 }
