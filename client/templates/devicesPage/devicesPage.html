@@ -43,7 +43,7 @@
 				        aria-haspopup="true" aria-expanded="false">Rank
 				</button>
 				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-					{% for rank in device_rank_class.list() %}
+					{% for rank in device_ranks %}
 					<a class="rankDropdownItem dropdown-item" href="#"
 					   onclick="setRankDropdownValue('{{rank.name}}')"
 					   id="{{rank.name}}_option">{{rank.name}}</a>

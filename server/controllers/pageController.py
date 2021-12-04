@@ -15,11 +15,13 @@ def index():
 def devicesPage():
     deviceService = DeviceService()
     devicesWrapper = deviceService.getDevicesWrapper()
+    # TODO: move the logic for getting valid device ranks to the service layer
+    deviceRanks = [DeviceRank.CRITICAL, DeviceRank.KNOWN]
     return render_template("devicesPage/devicesPage.html",
                            critical_devices=devicesWrapper.criticalDevices,
                            known_devices=devicesWrapper.knownDevices,
                            unknown_devices=devicesWrapper.unknownDevices,
-                           device_rank_class=DeviceRank)
+                           device_ranks=deviceRanks)
 
 
 @app.route("/settings-page")
